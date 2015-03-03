@@ -4,6 +4,9 @@ Map Tools
 *Map Tools* is a configurable application template that enables you to display an ArcGIS web map using a variety of tools. The template can be configured using the following options: 
 
 
+[View it live] (http://www.arcgis.com/apps/MapTools/index.html)
+
+
 #Features
 The template can be configured using the following options:
 
