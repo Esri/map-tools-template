@@ -29,15 +29,17 @@ declare, win, array, Color, all, Deferred, lang, domUtils, esriRequest, esriLang
             // config will contain application and user defined info for the template such as i18n strings, the web map id
             // and application id
             // any url parameters and any application specific configuration information.
+            var deferred;
+
             if (config) {
                 this.config = config;
                 window.config = config;
 
                 //supply either the webmap id or, if available, the item info
                 var itemInfo = this.config.itemInfo || this.config.webmap;
-                this._createWebMap(itemInfo);
+                deferred = this._createWebMap(itemInfo);
 
-                //update app theme            
+                //update app theme
                 query(".bg").style("backgroundColor", this.config.theme.toString());
                 query("#titleDiv").style("color", this.config.titlecolor.toString());
 
@@ -45,7 +47,12 @@ declare, win, array, Color, all, Deferred, lang, domUtils, esriRequest, esriLang
             } else {
                 var error = new Error("Main:: Config is not defined");
                 this.reportError(error);
+
+                deferred = new Deferred();
+                deferred.reject(error);
             }
+
+            return deferred;
         },
         loadMapWidgets: function () { /*Add all the widgets that live on the map*/
             require(["application/sniff!scale?esri/dijit/Scalebar"], lang.hitch(this, function (Scalebar) {
@@ -59,7 +66,7 @@ declare, win, array, Color, all, Deferred, lang, domUtils, esriRequest, esriLang
             }));
 
             if (this.config.zoom) {
-                //setup icon fonts 
+                //setup icon fonts
                 query(".esriSimpleSliderIncrementButton").forEach(function (node) {
                     domClass.add(node, "icon-zoomin");
                 });
@@ -90,7 +97,7 @@ declare, win, array, Color, all, Deferred, lang, domUtils, esriRequest, esriLang
                     var home = new HomeButton({
                         map: this.map
                     }, domConstruct.create("div", {}, query(".esriSimpleSliderIncrementButton")[0], "after"));
-                    //Use the home icon from the esri Fonts 
+                    //Use the home icon from the esri Fonts
                     query(".HomeButton .home").forEach(function (node) {
                         domClass.add(node, "icon-home");
                         domClass.add(node, "icon-color");
@@ -116,7 +123,7 @@ declare, win, array, Color, all, Deferred, lang, domUtils, esriRequest, esriLang
                 }, "mapDiv"));
                 var defaultSources = [];
 
-                //setup geocoders defined in common config 
+                //setup geocoders defined in common config
                 if (this.config.helperServices.geocode && this.config.locationSearch) {
                     var geocoders = lang.clone(this.config.helperServices.geocode);
                     array.forEach(geocoders, lang.hitch(this, function (geocoder) {
@@ -139,14 +146,14 @@ declare, win, array, Color, all, Deferred, lang, domUtils, esriRequest, esriLang
                             defaultSources.push(geocoder);
                         } else if (esriLang.isDefined(geocoder.singleLineFieldName)) {
 
-                            //Add geocoders with a singleLineFieldName defined 
+                            //Add geocoders with a singleLineFieldName defined
                             geocoder.locator = new Locator(geocoder.url);
 
                             defaultSources.push(geocoder);
                         }
                     }));
                 }
-                //add configured search layers to the search widget 
+                //add configured search layers to the search widget
                 var configuredSearchLayers = (this.config.searchLayers instanceof Array) ? this.config.searchLayers : JSON.parse(this.config.searchLayers);
 
                 array.forEach(configuredSearchLayers, lang.hitch(this, function (layer) {
@@ -168,11 +175,11 @@ declare, win, array, Color, all, Deferred, lang, domUtils, esriRequest, esriLang
                         }
                     }
                 }));
-                
-                //Add search layers defined on the web map item 
+
+                //Add search layers defined on the web map item
                 if (this.config.response.itemInfo.itemData && this.config.response.itemInfo.itemData.applicationProperties && this.config.response.itemInfo.itemData.applicationProperties.viewing && this.config.response.itemInfo.itemData.applicationProperties.viewing.search) {
                     var searchOptions = this.config.response.itemInfo.itemData.applicationProperties.viewing.search;
-                
+
                     array.forEach(searchOptions.layers, lang.hitch(this, function (searchLayer) {
                         //we do this so we can get the title specified in the item
                         var operationalLayers = this.config.itemInfo.itemData.operationalLayers;
@@ -219,8 +226,8 @@ declare, win, array, Color, all, Deferred, lang, domUtils, esriRequest, esriLang
 
                 search.set("sources", defaultSources);
                 search.startup();
-                
-                //set the first non esri layer as active if search layers are defined. 
+
+                //set the first non esri layer as active if search layers are defined.
                 var activeIndex = 0;
                 if (searchLayers) {
                     array.some(defaultSources, function (s, index) {
@@ -310,7 +317,7 @@ declare, win, array, Color, all, Deferred, lang, domUtils, esriRequest, esriLang
                         }
                     }));
                 }
-                //if no layer don't create table 
+                //if no layer don't create table
                 if (layer === null) {
                     tableDef.resolve(null);
                     return;
@@ -321,13 +328,13 @@ declare, win, array, Color, all, Deferred, lang, domUtils, esriRequest, esriLang
                 on(btn, "click", lang.hitch(this, function () {
                     this._closeContainers("tableDiv");
 
-                    //Toggle table display 
+                    //Toggle table display
                     var table = dom.byId("tableDiv");
                     var height = domStyle.get(table, "height");
-                    if (height === 0) { //show table 
+                    if (height === 0) { //show table
                         domClass.add(btn, "tool-selected");
                         this._openTable(table);
-                    } else { //hide table 
+                    } else { //hide table
                         domClass.remove(btn, "tool-selected");
                         this._closeTable(table, layer);
                     }
@@ -519,7 +526,7 @@ declare, win, array, Color, all, Deferred, lang, domUtils, esriRequest, esriLang
 
 
                     }));
-                } else { //use the default layouts 
+                } else { //use the default layouts
                     var templates = [{
                         layout: "Letter ANSI A Landscape",
                         layoutOptions: layoutOptions,
@@ -650,7 +657,7 @@ declare, win, array, Color, all, Deferred, lang, domUtils, esriRequest, esriLang
 
 
             //Wait until all the tools have been created then position on the toolbar
-            //otherwise we'd get the tools placed in a random order 
+            //otherwise we'd get the tools placed in a random order
             all(toolDeferreds).then(lang.hitch(this, function (results) {
                 array.forEach(results, function (node) {
                     if (node) {
@@ -732,7 +739,7 @@ declare, win, array, Color, all, Deferred, lang, domUtils, esriRequest, esriLang
                 logo: (this.config.logoimage === null) ? true : false
             };
 
-            //specify center and zoom if provided as url params 
+            //specify center and zoom if provided as url params
             if (this.config.level) {
                 options.zoom = this.config.level;
             }
@@ -743,12 +750,14 @@ declare, win, array, Color, all, Deferred, lang, domUtils, esriRequest, esriLang
                 }
 
             }
-            arcgisUtils.createMap(itemInfo, "mapDiv", {
+            var deferred = arcgisUtils.createMap(itemInfo, "mapDiv", {
                 mapOptions: options,
                 usePopupManager: true,
                 editable: this.config.editable,
                 bingMapsKey: this.config.bingKey
-            }).then(lang.hitch(this, function (response) {
+            });
+
+            deferred.then(lang.hitch(this, function (response) {
                 this.map = response.map;
                 this.config.response = response;
 
@@ -778,17 +787,17 @@ declare, win, array, Color, all, Deferred, lang, domUtils, esriRequest, esriLang
                 domClass.add(this.map.infoWindow.domNode, "light");
                 query(".esriPopup .pointer").style("backgroundColor", this.config.theme.toString());
                 query(".esriPopup .titlePane").style("backgroundColor", this.config.theme.toString());
-       
+
                 //Set the font color using the configured color value
                 query(".esriPopup .titlePane").style("color", this.config.color.toString());
-                query(".esriPopup. .titleButton").style("color", this.config.color.toString());  
-                
+                query(".esriPopup .titleButton").style("color", this.config.color.toString());
 
-                //Add a title 
+
+                //Add a title
                 this.config.title = this.config.title || response.itemInfo.item.title;
-                //set browser tab title 
+                //set browser tab title
                 document.title = this.config.title;
-                //add application title 
+                //add application title
                 if (this.config.showtitle) {
                     dom.byId("titleDiv").innerHTML = this.config.title;
                 } else {
@@ -809,12 +818,14 @@ declare, win, array, Color, all, Deferred, lang, domUtils, esriRequest, esriLang
                 // map has been created. You can start using it.
                 // If you need map to be loaded, listen for it's load event.
             }), this.reportError);
+
+            return deferred;
         },
         _createSidePanelContent: function (itemInfo) {
 
-            //legend, details, editor 
+            //legend, details, editor
             domClass.add(this.map.container, "has-sidepanel");
-            //add the legend 
+            //add the legend
             require(["application/sniff!legend?esri/dijit/Legend"], lang.hitch(this, function (Legend) {
                 if (!Legend) {
                     return;
@@ -853,7 +864,7 @@ declare, win, array, Color, all, Deferred, lang, domUtils, esriRequest, esriLang
                     this._navigateStack("detailsPanel", "details_toggle");
                 }
             }
-            //add the editor 
+            //add the editor
             require(["application/sniff!editor?esri/dijit/editing/Editor"], lang.hitch(this, function (Editor) {
                 if (!Editor) {
                     return;
@@ -908,7 +919,7 @@ declare, win, array, Color, all, Deferred, lang, domUtils, esriRequest, esriLang
                 }
             }));
 
-            //remove any selected styles 
+            //remove any selected styles
             query("#toolbar-trailing .tool-selected").forEach(function (node) {
                 if (node && node.id !== "table_toggle") {
                     domClass.remove(node, "tool-selected");
@@ -943,7 +954,7 @@ declare, win, array, Color, all, Deferred, lang, domUtils, esriRequest, esriLang
         },
         _navigateStack: function (panelLabel, buttonLabel) {
             var stackContainer = registry.byId("stackContainer");
-            //remove the selected class from all nodes 
+            //remove the selected class from all nodes
             query("#toolbar-leading .tool-selected").forEach(function (node) {
                 domClass.remove(node, "tool-selected");
             });
@@ -954,7 +965,7 @@ declare, win, array, Color, all, Deferred, lang, domUtils, esriRequest, esriLang
             if (panel_width > 0 && stackContainer.selectedChildWidget.id === panelLabel) {
                 this._destroyEditor();
                 domStyle.set(dom.byId("sideDiv"), "width", 0);
-            } else { //toggle between the panels 
+            } else { //toggle between the panels
                 //add selected style to current node
                 domClass.add(dom.byId(buttonLabel), "tool-selected");
                 domStyle.set(dom.byId("sideDiv"), "width", this.config.panelwidth + "px");
@@ -1002,21 +1013,21 @@ declare, win, array, Color, all, Deferred, lang, domUtils, esriRequest, esriLang
             domStyle.set(table, "height", 0);
         },
         _createEditor: function () {
-            //add the editor 
+            //add the editor
             require(["application/sniff!editor?esri/dijit/editing/Editor"], lang.hitch(this, function (Editor) {
                 if (!Editor) {
                     return;
                 }
                 this._destroyEditor();
-                //close any containers 
+                //close any containers
                 this._closeContainers("");
                 this._closeTable(dom.byId("tableDiv"));
-                //disable the table button 
+                //disable the table button
                 var tableButton = dom.byId("table_toggle");
                 if (tableButton) {
                     tableButton.disabled = true;
                 }
-                //disable map info window 
+                //disable map info window
                 this.map.setInfoWindowOnClick(false);
                 var editableLayers = this._getEditableLayers(this.config.response.itemInfo.itemData.operationalLayers);
 
@@ -1066,7 +1077,7 @@ declare, win, array, Color, all, Deferred, lang, domUtils, esriRequest, esriLang
                 this.editor = null;
                 this.map.setInfoWindowOnClick(true);
 
-                //re-activate the table button 
+                //re-activate the table button
                 var tableButton = dom.byId("table_toggle");
                 if (tableButton) {
                     tableButton.disabled = false;
@@ -1077,11 +1088,11 @@ declare, win, array, Color, all, Deferred, lang, domUtils, esriRequest, esriLang
 
         _updateTheme: function () {
 
-            //Set the Slider +/- color to match the icon style. 
-            //Also update the menu icon to match the tool color. 
+            //Set the Slider +/- color to match the icon style.
+            //Also update the menu icon to match the tool color.
             query(".tool-label").style("color", this.config.color.toString());
             query("[class^='icon-'], [class*=' icon-']").style("color", this.config.iconcolortheme.toString());
-            
+
             if(this.map){
                 this.map.resize();
                 this.map.reposition();
