@@ -781,7 +781,7 @@ declare, win, array, Color, all, Deferred, lang, domUtils, esriRequest, esriLang
        
                 //Set the font color using the configured color value
                 query(".esriPopup .titlePane").style("color", this.config.color.toString());
-                query(".esriPopup. .titleButton").style("color", this.config.color.toString());  
+                query(".esriPopup .titleButton").style("color", this.config.color.toString());  
                 
 
                 //Add a title 
