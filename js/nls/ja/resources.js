@@ -20,6 +20,7 @@ define(
             error: "マップを作成できません"
         },
         tools:{
+            bookmarkTool: "ブックマーク",
             basemapTool: "ベースマップ",
             legendTool: "凡例",
             detailsTool: "詳細",
@@ -35,7 +36,9 @@ define(
                   "label2": '縦',
                   "label3": '横',
                   "label4": '縦'
-            }
+            },
+            printTitle: "タイトル",
+            printTitlePrompt: "カスタム タイトルの追加"
         }
     })
 );

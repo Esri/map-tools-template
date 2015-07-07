@@ -20,6 +20,7 @@ define(
             error: "يتعذر إنشاء الخريطة"
         },
         tools:{
+            bookmarkTool: "العلامات المرجعية",
             basemapTool: "خرائط الأساس",
             legendTool: "وسيلة إيضاح",
             detailsTool: "التفاصيل",
@@ -35,7 +36,9 @@ define(
                   "label2": 'عمودي',
                   "label3": 'أفقي',
                   "label4": 'عمودي'
-            }
+            },
+            printTitle: "العنوان",
+            printTitlePrompt: "إضافة عنوان مخصص"
         }
     })
 );

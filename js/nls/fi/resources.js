@@ -20,6 +20,7 @@ define(
             error: "Karttaa ei voi luoda"
         },
         tools:{
+            bookmarkTool: "Kirjanmerkit",
             basemapTool: "Taustakartat",
             legendTool: "Selite",
             detailsTool: "Yksityiskohdat",
@@ -35,7 +36,9 @@ define(
                   "label2": 'Pysty',
                   "label3": 'Vaaka',
                   "label4": 'Pysty'
-            }
+            },
+            printTitle: "Otsikko",
+            printTitlePrompt: "Lisää mukautettu otsikko"
         }
     })
 );

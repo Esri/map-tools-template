@@ -20,6 +20,7 @@ define(
             error: "Impossible de créer la carte"
         },
         tools:{
+            bookmarkTool: "Géosignets",
             basemapTool: "Fonds de carte",
             legendTool: "Légende",
             detailsTool: "Détails",
@@ -35,7 +36,9 @@ define(
                   "label2": 'Portrait',
                   "label3": 'Paysage',
                   "label4": 'Portrait'
-            }
+            },
+            printTitle: "Titre",
+            printTitlePrompt: "Ajouter un titre personnalisé"
         }
     })
 );

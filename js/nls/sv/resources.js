@@ -20,6 +20,7 @@ define(
             error: "Det gick inte att skapa kartan"
         },
         tools:{
+            bookmarkTool: "Bokmärken",
             basemapTool: "Baskartor",
             legendTool: "Teckenförklaring",
             detailsTool: "Information",
@@ -35,7 +36,9 @@ define(
                   "label2": 'Stående',
                   "label3": 'Liggande',
                   "label4": 'Stående'
-            }
+            },
+            printTitle: "Titel",
+            printTitlePrompt: "Lägg till anpassad titel"
         }
     })
 );

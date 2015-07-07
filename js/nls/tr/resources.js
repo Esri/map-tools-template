@@ -20,6 +20,7 @@ define(
             error: "Harita oluşturulamıyor"
         },
         tools:{
+            bookmarkTool: "Yer İşaretleri",
             basemapTool: "Altlık Haritalar",
             legendTool: "Gösterim",
             detailsTool: "Ayrıntılar",
@@ -35,7 +36,9 @@ define(
                   "label2": 'Dikey',
                   "label3": 'Yatay',
                   "label4": 'Dikey'
-            }
+            },
+            printTitle: "Başlık",
+            printTitlePrompt: "Özel başlık ekle"
         }
     })
 );

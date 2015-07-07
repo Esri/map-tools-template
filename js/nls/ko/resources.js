@@ -20,6 +20,7 @@ define(
             error: "맵을 생성할 수 없음"
         },
         tools:{
+            bookmarkTool: "책갈피",
             basemapTool: "베이스맵",
             legendTool: "범례",
             detailsTool: "세부정보",
@@ -35,7 +36,9 @@ define(
                   "label2": '세로',
                   "label3": '가로',
                   "label4": '세로'
-            }
+            },
+            printTitle: "제목",
+            printTitlePrompt: "사용자 정의 제목 추가"
         }
     })
 );

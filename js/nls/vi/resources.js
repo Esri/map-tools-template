@@ -20,6 +20,7 @@ define(
             error: "Không thể tạo bản đồ"
         },
         tools:{
+            bookmarkTool: "Đánh dấu",
             basemapTool: "Bản đồ nền",
             legendTool: "Chú giải",
             detailsTool: "Chi tiết",
@@ -35,7 +36,9 @@ define(
                   "label2": 'Hướng dọc',
                   "label3": 'Hướng ngang',
                   "label4": 'Hướng dọc'
-            }
+            },
+            printTitle: "Tiêu đề",
+            printTitlePrompt: "Thêm tiêu đề tùy chỉnh"
         }
     })
 );

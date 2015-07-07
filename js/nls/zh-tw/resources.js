@@ -17,28 +17,28 @@
 define(
      ({
         map: {
-            error: "Kan geen kaart creëren"
+            error: "無法建立地圖"
         },
         tools:{
-            bookmarkTool: "Bladwijzers",
-            basemapTool: "Basemaps",
-            legendTool: "Legenda",
-            detailsTool: "Details",
-            measureTool: "Meten",
-            shareTool: "Delen",
-            layerTool: "Kaartlagen",
-            tableTool: "Table",
-            editTool: "Bewerken",
-            printTool: "Afdrukken",
-            printLegend: "Legenda toevoegen aan uitvoer",
+            bookmarkTool: "書簽",
+            basemapTool: "底圖",
+            legendTool: "圖例",
+            detailsTool: "詳細資訊",
+            measureTool: "測量",
+            shareTool: "分享",
+            layerTool: "圖層",
+            tableTool: "表",
+            editTool: "編輯",
+            printTool: "列印",
+            printLegend: "在輸出新增圖例",
             printLayouts: {
-                  "label1": 'Liggend',
-                  "label2": 'Staand',
-                  "label3": 'Liggend',
-                  "label4": 'Staand'
+                  "label1": '橫向',
+                  "label2": '縱向',
+                  "label3": '橫向',
+                  "label4": '縱向'
             },
-            printTitle: "Titel",
-            printTitlePrompt: "Aangepaste titel toevoegen"
+            printTitle: "標題",
+            printTitlePrompt: "新增自訂標題"
         }
     })
 );

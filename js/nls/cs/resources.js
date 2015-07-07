@@ -20,6 +20,7 @@ define(
             error: "Nelze vytvořit mapu"
         },
         tools:{
+            bookmarkTool: "Záložky",
             basemapTool: "Podkladové mapy",
             legendTool: "Legenda",
             detailsTool: "Podrobnosti",
@@ -35,7 +36,9 @@ define(
                   "label2": 'Na výšku',
                   "label3": 'Na šířku',
                   "label4": 'Na výšku'
-            }
+            },
+            printTitle: "Nadpis",
+            printTitlePrompt: "Přidat vlastní název"
         }
     })
 );

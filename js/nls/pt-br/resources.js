@@ -20,6 +20,7 @@ define(
             error: "Não foi possível criar o mapa"
         },
         tools:{
+            bookmarkTool: "Marcadores",
             basemapTool: "Mapas Base",
             legendTool: "Legenda",
             detailsTool: "Detalhes",
@@ -35,7 +36,9 @@ define(
                   "label2": 'Retrato',
                   "label3": 'Paisagem',
                   "label4": 'Retrato'
-            }
+            },
+            printTitle: "Título",
+            printTitlePrompt: "Adicionar título personalizado"
         }
     })
 );

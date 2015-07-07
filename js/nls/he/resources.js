@@ -20,6 +20,7 @@ define(
             error: "לא ניתן ליצור מפה"
         },
         tools:{
+            bookmarkTool: "סימניות",
             basemapTool: "מפות בסיס",
             legendTool: "מקרא",
             detailsTool: "פרטים",
@@ -35,7 +36,9 @@ define(
                   "label2": 'לאורך',
                   "label3": 'לרוחב',
                   "label4": 'לאורך'
-            }
+            },
+            printTitle: "כותרת",
+            printTitlePrompt: "הוסף כותרת מותאמת אישית"
         }
     })
 );

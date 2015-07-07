@@ -20,6 +20,7 @@ define(
             error: "无法创建地图"
         },
         tools:{
+            bookmarkTool: "书签",
             basemapTool: "底图",
             legendTool: "图例",
             detailsTool: "详细信息",
@@ -35,7 +36,9 @@ define(
                   "label2": '纵向',
                   "label3": '横向',
                   "label4": '纵向'
-            }
+            },
+            printTitle: "标题",
+            printTitlePrompt: "添加自定义标题"
         }
     })
 );

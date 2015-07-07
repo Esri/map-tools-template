@@ -1,8 +1,11 @@
 {  
-   "configurationSettings":[  
+   "configurationSettings":[
       {  
          "category":"<b>Map Settings</b>",
          "fields":[  
+            {
+               "type": "appproxies"
+            },
             {  
                "type":"webmap"
             },
@@ -17,6 +20,22 @@
                "fieldName":"title",
                "type":"string",
                "tooltip":"Defaults to web map title"
+            },{
+               "type": "paragraph",
+               "value": "Enter a value to override the default title font size. Make sure to specify the font units. For example 20px would result in a title font size of 20 pixels. Em and pt are also valid units.  "
+            },{
+               "type": "string",
+               "label": "Title font size",
+               "tooltip": "Specify title font size",
+               "fieldName": "titlefontsize",
+               "placeHolder": "20px"
+            },{
+               "type": "paragraph",
+               "value": "Specify a custom logo image and link. If you check Logo in header the logo image will display to the left of the map title. If you don't select this the logo will be displayed in the lower-right corner of the map."
+            },{
+               "label": "Logo in header",
+               "fieldName": "logointitle",
+               "type": "boolean"
             },
             {  
                "label":"Map logo:",
@@ -92,6 +111,10 @@
                "type":"boolean",
                "fieldName": "basemaps",
                "label": "Basemap Gallery"
+            },{
+               "type": "boolean",
+               "fieldName": "bookmarks",
+               "label": "Bookmarks"
             },
             {  
                "type":"boolean",
@@ -112,6 +135,10 @@
                "type":"boolean",
                "fieldName":"legend",
                "label":"Legend"
+            },{
+               "type": "boolean",
+               "fieldName": "measure",
+               "label": "Measure"
             },
             {  
                "type":"boolean",
@@ -178,50 +205,18 @@
       {  
          "category":"Search Settings",
          "fields":[  
-            {  
+            {
                "type":"paragraph",
-               "value":"Enable the search capability and optionally select search layers and fields. These layers will appear in the search tool allowing application users to search for particular values in the specified layers and fields."
+               "value": "Enable search to allow users to find a location or data in the map. Configure the search settings to refine the experience in your app by setting the default search resource, placeholder text, etc."
             },
             {  
                "type":"boolean",
                "fieldName":"search",
-               "label":"Address Finder"
-            },
-            {  
-               "type":"boolean",
-               "fieldName":"searchExtent",
-               "label":"Prioritize search results in current extent."
-            },
-            {  
-               "type":"paragraph",
-               "value":"When Location Search is true the search widget will allow users to search for addresses and locations using one or more locators and also search the layers and fields specified in the Search Layers configuration option. Unchecking the Location Search option will remove the locator search and only configured search layers will be displayed."
-            },
-            {  
-               "type":"boolean",
-               "fieldName":"locationSearch",
-               "label":"Location Search"
-            },
-            {  
-               "label":"Select layers and fields",
-               "fieldName":"searchLayers",
-               "type":"multilayerandfieldselector",
-               "tooltip":"Select layer and fields to search",
-               "layerOptions":{  
-                  "supportedTypes":[  
-                     "FeatureLayer"
-                  ],
-                  "geometryTypes":[  
-                     "esriGeometryPoint",
-                     "esriGeometryLine",
-                     "esriGeometryPolyline",
-                     "esriGeometryPolygon"
-                  ]
-               },
-               "fieldOptions":{  
-                  "supportedTypes":[  
-                     "esriFieldTypeString"
-                  ]
-               }
+               "label":"Enable search tool"
+            },{
+               "type": "search",
+               "fieldName":"searchConfig",
+               "label": "Configure search tool"
             }
          ]
       },
@@ -259,12 +254,49 @@
                "label":"Add Legend to Output"
             }
          ]
+      },{
+         "category": "Custom URL Parameter",
+         "fields": [
+            {
+               "type": "paragraph",
+               "value": "Setup the app to support a custom url parameter. For example if your map contains a feature layer with parcel information and you'd like to be able to find parcels using a url parameter you can use this section to do so. Select a layer and search field then define the name of a custom param. Once you've defined these values you can append the custom search to your application url using the custom parameter name you define. For example, if I set the custom param value to parcels a custom url would look like this index.html?parcel=3045"
+            },{
+               "placeHolder":"i.e. parcels",
+               "label":"URL param name:",
+               "fieldName":"customUrlParam",
+               "type":"string",
+               "tooltip":"Custom URL param name"
+            },{  
+               "type":"layerAndFieldSelector",
+               "fieldName":"customUrlLayer",
+               "label":"Layer to search for custom url param value",
+               "tooltip":"Url param search layer",
+               "fields":[  
+                  {  
+                     "multipleSelection":false,
+                     "fieldName":"urlField",
+                     "label":"URL param search field",
+                     "tooltip":"URL param search field"
+                  }
+               ],
+               "layerOptions":{  
+                  "supportedTypes":[  
+                     "FeatureLayer"
+                  ],
+                  "geometryTypes":[  
+                     "esriGeometryPoint",
+                     "esriGeometryLine",
+                     "esriGeometryPolygon"
+                  ]
+               }
+            }
+
+         ]
       }
    ],
    "values":{  
       "search":true,
       "showtitle":true,
-      "searchExtent":true,
       "basemaps": true,
       "legend":true,
       "table":true,
@@ -272,6 +304,7 @@
       "bookmarks":false,
       "zoom":true,
       "home":true,
+      "measure":false,
       "locate":false,
       "scale":false,
       "share":false,
@@ -279,6 +312,7 @@
       "printlayouts":true,
       "printlegend":true,
       "iconcolortheme":"#fff",
+      "logointitle": false,
       "color":"#fff",
       "titlecolor":"#333",
       "theme":"#545454"

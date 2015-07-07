@@ -1,7 +1,7 @@
 @font-face {
   font-family: 'bv_template';
-  src: url("../fonts/icomoon.eot?-a7jfp1");
-  src: url("../fonts/icomoon.eot?#iefix-a7jfp1") format('embedded-opentype'), url("../fonts/icomoon.woff?-a7jfp1") format('woff'), url("../fonts/icomoon.ttf?-a7jfp1") format('truetype'), url("../fonts/icomoon.svg?-a7jfp1#icomoon") format('svg');
+  src: url("../fonts/icomoon.eot?-1s1wx8");
+  src: url("../fonts/icomoon.eot?#iefix-1s1wx8") format('embedded-opentype'), url("../fonts/icomoon.woff?-1s1wx8") format('woff'), url("../fonts/icomoon.ttf?-1s1wx8") format('truetype'), url("../fonts/icomoon.svg?-1s1wx8#icomoon") format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -9,6 +9,7 @@
 [class*=" icon-"] {
   font-family: 'bv_template' !important;
   speak: none;
+  font-size: 16px;
   font-style: normal;
   font-weight: normal;
   font-variant: normal;
@@ -19,14 +20,23 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-.icon-edit:before {
-  content: "\e60a";
+.icon-book:before {
+  content: "\e60c";
+}
+.icon-basemap:before {
+  content: "\61";
 }
 .icon-measure:before {
   content: "\e600";
 }
-.icon-table:before {
-  content: "\e609";
+.icon-share:before {
+  content: "\e601";
+}
+.icon-file-text:before {
+  content: "\e603";
+}
+.icon-link:before {
+  content: "\e604";
 }
 .icon-twitter:before {
   content: "\e605";
@@ -40,53 +50,50 @@
 .icon-mail:before {
   content: "\e608";
 }
-.icon-link:before {
-  content: "\e604";
+.icon-table:before {
+  content: "\e609";
 }
-.icon-file-text:before {
-  content: "\e603";
-}
-.icon-printer:before {
-  content: "\e602";
-}
-.icon-share:before {
-  content: "\e601";
-}
-.icon-basemap:before {
-  content: "\61";
+.icon-edit:before {
+  content: "\e60a";
 }
 .icon-close:before {
-  content: "\62";
-}
-.icon-previous:before {
-  content: "\63";
-}
-.icon-layers:before {
-  content: "\64";
-}
-.icon-home:before {
-  content: "\68";
-}
-.icon-legend:before {
-  content: "\69";
-}
-.icon-locate:before {
-  content: "\6a";
-}
-.icon-place:before {
-  content: "\6b";
-}
-.icon-next:before {
-  content: "\6d";
+  content: "\e602";
 }
 .icon-magnify:before {
-  content: "\6e";
+  content: "\e60b";
+}
+.icon-place:before {
+  content: "\e61e";
 }
 .icon-zoomin:before {
-  content: "\6f";
+  font-size: 20px;
+  content: "\e621";
 }
 .icon-zoomout:before {
-  content: "\70";
+  font-size: 20px;
+  content: "\e622";
+}
+.icon-home:before {
+  content: "\e62f";
+  font-size: 20px;
+}
+.icon-locate:before {
+  content: "\e630";
+}
+.icon-next:before {
+  content: "\e631";
+}
+.icon-previous:before {
+  content: "\e632";
+}
+.icon-legend:before {
+  content: "\e633";
+}
+.icon-layers:before {
+  content: "\e635";
+}
+.icon-printer:before {
+  content: "\e641";
 }
 html,
 body {
@@ -131,6 +138,23 @@ body {
   font-weight: 400;
   margin: 0;
 }
+#title-logo {
+  margin-left: 5px;
+  display: block;
+  overflow: hidden;
+  float: left;
+  line-height: 2em;
+  width: 2em;
+  height: 2em;
+  padding-top: 2px;
+  padding-bottom: 2px;
+}
+#title-logo img {
+  vertical-align: middle;
+  line-height: inherit;
+  max-width: 2em;
+  max-height: 2em;
+}
 .toolbar {
   height: 42px;
   line-height: 42px;
@@ -146,10 +170,24 @@ body {
   width: auto;
 /*280px*/
   margin: auto;
-  overflow-y:hidden;
+  overflow-y: hidden;
 }
 #toolbar-trailing {
   margin: auto;
+}
+.tools-menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.tools-submenu {
+  position: absolute;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.toolbar [class^="icon-"] {
+  padding: 2px;
 }
 .toolbar button:active,
 .toolbar button:hover:enabled {
@@ -199,8 +237,8 @@ body {
   cursor: default;
   color: #ccc;
 }
-.esriBasemapGalleryLabelContainer{
-    font-size:12px;
+.esriBasemapGalleryLabelContainer {
+  font-size: 12px;
 }
 #tableDiv {
   height: 0;
@@ -277,6 +315,9 @@ body {
 .arcgisSearch .searchCollapsed .searchSubmit {
   padding: 6px;
 }
+.arcgisSearch .searchIcon {
+  font-size: 22px;
+}
 .LocateButton {
   position: absolute;
   top: 120px;
@@ -316,7 +357,7 @@ body {
 }
 /*End map tools positioning section*/
 .LocateButton .zoomLocateButton {
-  font-size: 28px;
+  font-size: 22px;
   line-height: 28px;
   text-align: center;
   vertical-align: baseline;
@@ -343,13 +384,23 @@ body {
 }
 #printDiv {
   padding: 5px;
-  height: 80px;
+  height: 110px;
   width: 200px;
 }
 .esriPrint {
   position: absolute;
-  top: 30px;
-  left: 0;
+  bottom: 5px;
+  right: 20px;
+  padding: 5px;
+}
+.printTitle {
+  width: 185px;
+  font-size: 14px;
+  border-width: 2px;
+  border-color: #ccc;
+  border-style: solid;
+  padding: 5px;
+  margin-bottom: 12px;
 }
 .esriPrintout a {
   color: #5daddd;
@@ -358,7 +409,7 @@ body {
 #printDiv .checkbox {
   display: inline-block;
   cursor: pointer;
-  margin-left: 10px;
+  margin-left: 2px;
   line-height: 18px;
   padding: 4px;
 }
@@ -403,12 +454,15 @@ body {
   overflow-y: scroll;
 }
 .container_box {
-  -webkit-border-radius: 5px;
-  border-radius: 5px;
+  -webkit-border-radius: 0 0 4px 4px;
+  border-radius: 0 0 4px 4px;
   position: relative;
   background: #fff;
   border: 1px solid #333;
   z-index: 60;
+}
+.esriBookmarks {
+  border: none;
 }
 @media screen and (max-width: 640px) {
   #galleryDiv {
@@ -532,112 +586,24 @@ input[type=checkbox]:checked.share-dialog-checkbox + .share-dialog-checkbox:befo
   max-height: 300px;
   overflow: hidden;
 }
-.TableOfContents {
+.esriLayer {
+  background-color: #fff;
+}
+.esriLayerList .esriTitle {
+  background-color: #fff;
+  border-bottom: none;
+}
+.esriLayerList .esriList{
+    border-top:none;
+}
+.esriLayerList .esriList ul {
+  background-color: #fff;
+}
+.esriLayerList {
   position: relative;
   width: 280px;
   max-height: 300px;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
   overflow: auto;
-}
-.TableOfContents .toc-title {
-  border-bottom: 1px solid #e0e0e0;
-  font-size: 16px;
-  line-height: 16px;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-}
-.TableOfContents .toc-first-layer .toc-title {
-  border-top: 1px solid #e0e0e0;
-}
-.TableOfContents .toc-title-container {
-  background: none;
-  color: #555;
-  position: relative;
-  zoom: 1;
-}
-.TableOfContents .toc-text {
-  float: left;
-  padding: 12px 0;
-  margin: 0;
-  -o-text-overflow: ellipsis;
-  text-overflow: ellipsis;
-  width: 200px;
-  white-space: nowrap;
-  overflow-x: hidden;
-  line-height: 16px;
-  height: 16px;
-  border: 1px solid transparent;
-  vertical-align: middle;
-}
-.esriRTL .TableOfContents .toc-text {
-  float: right;
-}
-.TableOfContents .toc-checkbox {
-  float: left;
-  height: 16px;
-  width: 16px;
-  border: 1px solid #bababa;
-  margin: 12px 8px;
-  vertical-align: middle;
-  font-size: 12px;
-  line-height: 16px;
-  background-color: #fff;
-  color: #000;
-  cursor: pointer;
-}
-.esriRTL .TableOfContents .toc-checkbox {
-  float: right;
-}
-.TableOfContents .toc-checkbox:hover {
-  color: #555;
-}
-.TableOfContents .toc-checkbox:active {
-  color: #999;
-}
-.TableOfContents .toc-check:before {
-  content: "\2713";
-  color: #333;
-  text-shadow: 1px 1px 1px rgba(0,0,0,0.2);
-  font-size: 18px;
-}
-.toc-settings {
-  cursor: pointer;
-  padding: 12px 0;
-  float: right;
-  margin-right: 15px;
-  color: #999;
-}
-.toc-settings:hover {
-  color: #333;
-}
-.toc-settings:active {
-  color: #97cbec;
-}
-.esriRTL .toc-settings {
-  margin-right: 0;
-  float: left;
-  margin-left: 15px;
-}
-.toc-account {
-  margin-left: 4px;
-  cursor: pointer;
-  text-decoration: none;
-}
-.esriRTL .toc-account {
-  margin-left: 0;
-  margin-right: 4px;
-}
-@media screen and (max-width: 300px) {
-  .TableOfContents {
-    width: auto;
-  }
-  .TableOfContents .toc-text {
-    width: 60%;
-  }
-}
-.clear {
-  clear: both;
 }

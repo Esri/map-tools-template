@@ -10,10 +10,21 @@ define(["dojo/has"], function (has) { /*App capabilities*/
         var share = g.config.share;
         return share;
     });
-
+    has.add("measure", function (g) {
+        var measure = g.config.measure;
+        return measure;
+    });
     has.add("scale", function (g) {
         var scale = g.config.scale;
         return scale;
+    });
+    has.add("bookmarks", function (g) {
+        var bookmarks = g.config.bookmarks;
+        if (!g.config.response.itemInfo.itemData.bookmarks) {
+            //if there aren't any bookmarks set to false. 
+            bookmarks = false;
+        }
+        return bookmarks;
     });
     has.add("basemaps", function (g) {
         var basemaps = g.config.basemaps;

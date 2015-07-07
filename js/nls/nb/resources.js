@@ -20,6 +20,7 @@ define(
             error: "Kan ikke opprette kart"
         },
         tools:{
+            bookmarkTool: "Bokmerker",
             basemapTool: "Bakgrunnskart",
             legendTool: "Tegnforklaring",
             detailsTool: "Detaljer",
@@ -35,7 +36,9 @@ define(
                   "label2": 'Stående',
                   "label3": 'Liggende',
                   "label4": 'Stående'
-            }
+            },
+            printTitle: "Tittel",
+            printTitlePrompt: "Legg til egendefinert tittel"
         }
     })
 );

@@ -49,6 +49,23 @@ html,body {
     font-weight:400;
     margin:0;
 }
+#title-logo{
+    margin-left:5px;
+    display:block;
+    overflow:hidden;
+    float:left;
+    line-height:2em;
+    width:2em;
+    height:2em;
+    padding-top:2px;
+    padding-bottom:2px;
+}
+#title-logo img{
+    vertical-align:middle;
+    line-height:inherit;
+    max-width:2em;
+    max-height:2em;
+}
 .toolbar {
     height:42px;
     line-height:42px;
@@ -68,7 +85,23 @@ html,body {
 #toolbar-trailing{
     margin:auto;
 }
+.tools-menu{
+  list-style:none;
+  padding:0;
+  margin:0;
+}
+.tools-menu li{
+}
 
+.tools-submenu{
+  position:absolute;
+  list-style:none;
+  padding:0;
+  margin:0;
+}
+.toolbar [class^="icon-"]{
+  padding:2px;
+}
 .toolbar button:active, .toolbar button:hover:enabled{
   box-shadow: 0 0 1px rgba(81, 203, 238, 1); 
   border-radius: 4px; 
@@ -117,6 +150,7 @@ html,body {
 .esriBasemapGalleryLabelContainer{
     font-size:12px;
 }
+
 #tableDiv{
     height:0;
     background-color: #eee;
@@ -163,9 +197,7 @@ html,body {
 .claro .dijitContentPane{
     padding:0 !important;
 }
-.esriSimpleSlider{
 
-}
 .esriSimpleSlider span{
     display:none;
 }
@@ -192,6 +224,9 @@ html,body {
 }
 .arcgisSearch .searchCollapsed .searchSubmit{
     padding:6px;
+}
+.arcgisSearch .searchIcon{
+  font-size:22px;
 }
 .LocateButton{
     position:absolute;
@@ -233,7 +268,7 @@ html,body {
 }
 /*End map tools positioning section*/
 .LocateButton .zoomLocateButton{
-    font-size:28px;
+    font-size:22px;
     line-height:28px;
     text-align:center;
     vertical-align:baseline;
@@ -264,15 +299,24 @@ html,body {
 }
 #printDiv{
     padding:5px;
-    height:80px;
+    height:110px;
     width:200px;
 }
 .esriPrint{
-    position:absolute;
-    top:30px;
-    left:0;
+  position: absolute;
+  bottom:5px;
+  right: 20px;
+  padding:5px;
 }
-
+.printTitle{
+  width: 185px;
+  font-size: 14px;
+  border-width: 2px;
+  border-color: #CCC;
+  border-style: solid;
+  padding: 5px;
+  margin-bottom: 12px;
+}
 .esriPrintout a{
     color: #5daddd;
 }
@@ -281,7 +325,7 @@ html,body {
 #printDiv .checkbox {
     display: inline-block;
     cursor: pointer;
-    margin-left:10px;
+    margin-left:2px;
     line-height:18px;
     padding:4px;
 }
@@ -328,13 +372,15 @@ html,body {
     overflow-y:scroll;
 }
 .container_box {
-    border-radius:5px;
+    border-radius:0 0 4px 4px;
     position: relative;
     background: #fff;
     border: 1px solid #333;
     z-index:60;
 }
-
+.esriBookmarks{
+  border:none;
+}
 @media screen and (max-width: 640px){
     #galleryDiv{
         width:140px;
@@ -465,107 +511,23 @@ html,body {
     max-height:300px;
     overflow:hidden;
 }
-
-.TableOfContents {
-    position:relative;
-    width: 280px;
-    max-height:300px;
-    overflow:auto;
+.esriLayer{
+  background-color: #fff;
 }
-.TableOfContents .toc-title {
-    border-bottom: 1px solid #e0e0e0;
-    font-size: 16px;
-    line-height: 16px;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    user-select: none;
+.esriLayerList .esriList{
+    border-top:none;
 }
-.TableOfContents .toc-first-layer .toc-title {
-    border-top: 1px solid #e0e0e0;
+.esriLayerList .esriTitle {
+  background-color: #fff;
+  border-bottom:none;
 }
-.TableOfContents .toc-title-container {
-    background: none;
-    color: #555;
-    position: relative;
-    zoom: 1;
+.esriLayerList .esriList ul{
+  background-color: #fff;
 }
-.TableOfContents .toc-text {
-    float: left;
-    padding: 12px 0;
-    margin: 0;
-    text-overflow: ellipsis;
-    width: 200px;
-    white-space: nowrap;
-    overflow-x: hidden;
-    line-height: 16px;
-    height: 16px;
-    border: 1px solid transparent;
-    vertical-align: middle;
-}
-.esriRTL .TableOfContents .toc-text {
-    float: right;
-}
-.TableOfContents .toc-checkbox {
-    float: left;
-    height: 16px;
-    width: 16px;
-    border: 1px solid #bababa;
-    margin: 12px 8px;
-    vertical-align: middle;
-    font-size: 12px;
-    line-height: 16px;
-    background-color: #fff;
-    color: #000;
-    cursor: pointer;
-}
-.esriRTL .TableOfContents .toc-checkbox {
-    float: right;
-}
-.TableOfContents .toc-checkbox:hover {
-    color: #555;
-}
-.TableOfContents .toc-checkbox:active {
-    color: #999;
-}
-.TableOfContents .toc-check:before{
-    content: "\2713";
-    color:#333;
-    text-shadow: 1px 1px 1px rgba(0, 0, 0, .2);
-    font-size: 18px;   
-}
-.toc-settings {
-    cursor: pointer;
-    padding: 12px 0;
-    float: right;
-    margin-right: 15px;
-    color: #999;
-}
-.toc-settings:hover {
-    color: #333;
-}
-.toc-settings:active {
-    color: #97cbec;
-}
-.esriRTL .toc-settings {
-    margin-right: 0;
-    float: left;
-    margin-left: 15px;
-}
-.toc-account {
-    margin-left: 4px;
-    cursor: pointer;
-    text-decoration: none;
-}
-.esriRTL .toc-account {
-    margin-left: 0;
-    margin-right: 4px;
-}
-@media screen and (max-width:300px) {
-    .TableOfContents {
-    width: auto;
-}
-.TableOfContents .toc-text {
-    width: 60%}
-}.clear {
-    clear: both;
+.esriLayerList {
+  position: relative;
+  width: 280px;
+  max-height: 300px;
+  border-radius:4px;
+  overflow: auto;
 }

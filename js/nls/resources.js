@@ -20,6 +20,7 @@ define({
             error: "Unable to create map"
         },
         tools:{
+            bookmarkTool: "Bookmarks",
             basemapTool: "Basemaps",
             legendTool: "Legend",
             detailsTool: "Details",
@@ -35,7 +36,9 @@ define({
                   "label2": 'Portrait',
                   "label3": 'Landscape',
                   "label4": 'Portrait'
-            }
+            },
+            printTitle: "Title",
+            printTitlePrompt: "Add custom title"
         }
     }),
 "ar": 1,
@@ -64,5 +67,7 @@ define({
 "tr": 1,
 "th": 1,
 "vi": 1,
-"zh-cn": 1
+"zh-cn": 1,
+"zh-hk": 1,
+"zh-tw": 1
 });

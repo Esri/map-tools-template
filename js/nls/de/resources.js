@@ -20,6 +20,7 @@ define(
             error: "Karte kann nicht erstellt werden"
         },
         tools:{
+            bookmarkTool: "Lesezeichen",
             basemapTool: "Grundkarten",
             legendTool: "Legende",
             detailsTool: "Details",
@@ -35,7 +36,9 @@ define(
                   "label2": 'Hochformat',
                   "label3": 'Querformat',
                   "label4": 'Hochformat'
-            }
+            },
+            printTitle: "Titel",
+            printTitlePrompt: "Benutzerdefinierten Titel hinzufügen"
         }
     })
 );
