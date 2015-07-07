@@ -10,6 +10,7 @@ Map Tools
 -  **Custom URL Parameters:** The template now supports the ability to define a custom url parameter along with the search layer and field. This can be used to build applications that display a particular feature at application startup. For example if your app displays parcel features you could define a custom url parameter called parcel and then users can navigate there directly by appending ?parcel=1245243242343 and the map will zoom to that feature on startup. Define these values using by setting the customUrlParam and customUrlLayer properties in config/defaults.js. 
 -  **Support for toggling sub layers:** The layers feature now allows you to toggle the visilibity of sub layers. 
 -  **Define custom print layout title:** The print feature now provides an option for users to define a custom title for the print layout. 
+-  **Add bookmark widget:** If your web map contains bookmarks enable the bookmark tool by setting bookmarks to true in config/defaults.js
 
 
 #Features
