@@ -41,7 +41,6 @@ declare, win, array, Color, all, Deferred, lang, domUtils, esriRequest, esriLang
                 query(".bg").style("backgroundColor", this.config.theme.toString());
                 query("#titleDiv").style("color", this.config.titlecolor.toString());
 
-
             } else {
                 var error = new Error("Main:: Config is not defined");
                 this.reportError(error);
@@ -100,140 +99,35 @@ declare, win, array, Color, all, Deferred, lang, domUtils, esriRequest, esriLang
 
                 }));
             }
-            require(["application/sniff!search?esri/dijit/Search", "application/sniff!search?esri/tasks/locator"], lang.hitch(this, function (Search, Locator) {
-                if (!Search && !Locator) {
+            require(["application/sniff!search?esri/dijit/Search", "application/sniff!search?esri/tasks/locator", "application/sniff!search?application/SearchSources"], lang.hitch(this, function (Search, Locator, SearchSources) {
+                if (!Search && !Locator && !SearchSources) {
                     return;
                 }
-                var options = {
+                var searchOptions = {
                     map: this.map,
-                    enableButtonMode: true,
-                    expanded: false,
-                    addLayersFromMap: false
+                    useMapExtent: this.config.searchExtent,
+                    itemData: this.config.response.itemInfo.itemData
                 };
-                var searchLayers = false;
-                var search = new Search(options, domConstruct.create("div", {
+
+                if (this.config.searchConfig) {
+                    searchOptions.applicationConfiguredSources = this.config.searchConfig.sources || [];
+                } else if (this.config.searchLayers) {
+                    var configuredSearchLayers = (this.config.searchLayers instanceof Array) ? this.config.searchLayers : JSON.parse(this.config.searchLayers);
+                    searchOptions.configuredSearchLayers = configuredSearchLayers;
+                    searchOptions.geocoders = this.config.locationSearch ? this.config.helperServices.geocode : [];
+                }
+                var searchSources = new SearchSources(searchOptions);
+                var createdOptions = searchSources.createOptions();
+                createdOptions.enableButtonMode = true;
+                if (this.config.searchConfig && this.config.searchConfig.activeSourceIndex) {
+                    createdOptions.activeSourceIndex = this.config.searchConfig.activeSourceIndex;
+                }
+                var search = new Search(createdOptions, domConstruct.create("div", {
                     id: "search"
                 }, "mapDiv"));
-                var defaultSources = [];
 
-                //setup geocoders defined in common config 
-                if (this.config.helperServices.geocode && this.config.locationSearch) {
-                    var geocoders = lang.clone(this.config.helperServices.geocode);
-                    array.forEach(geocoders, lang.hitch(this, function (geocoder) {
-                        if (geocoder.url.indexOf(".arcgis.com/arcgis/rest/services/World/GeocodeServer") > -1) {
-
-                            geocoder.hasEsri = true;
-                            geocoder.locator = new Locator(geocoder.url);
-
-                            geocoder.singleLineFieldName = "SingleLine";
-
-                            geocoder.name = geocoder.name || "Esri World Geocoder";
-
-                            if (this.config.searchExtent) {
-                                geocoder.searchExtent = this.map.extent;
-                                geocoder.localSearchOptions = {
-                                    minScale: 300000,
-                                    distance: 50000
-                                };
-                            }
-                            defaultSources.push(geocoder);
-                        } else if (esriLang.isDefined(geocoder.singleLineFieldName)) {
-
-                            //Add geocoders with a singleLineFieldName defined 
-                            geocoder.locator = new Locator(geocoder.url);
-
-                            defaultSources.push(geocoder);
-                        }
-                    }));
-                }
-                //add configured search layers to the search widget 
-                var configuredSearchLayers = (this.config.searchLayers instanceof Array) ? this.config.searchLayers : JSON.parse(this.config.searchLayers);
-
-                array.forEach(configuredSearchLayers, lang.hitch(this, function (layer) {
-
-                    var mapLayer = this.map.getLayer(layer.id);
-                    if (mapLayer) {
-                        var source = {};
-                        source.featureLayer = mapLayer;
-
-                        if (layer.fields && layer.fields.length && layer.fields.length > 0) {
-                            source.searchFields = layer.fields;
-                            source.displayField = layer.fields[0];
-                            source.outFields = ["*"];
-                            searchLayers = true;
-                            defaultSources.push(source);
-                            if (mapLayer.infoTemplate) {
-                                source.infoTemplate = mapLayer.infoTemplate;
-                            }
-                        }
-                    }
-                }));
-                
-                //Add search layers defined on the web map item 
-                if (this.config.response.itemInfo.itemData && this.config.response.itemInfo.itemData.applicationProperties && this.config.response.itemInfo.itemData.applicationProperties.viewing && this.config.response.itemInfo.itemData.applicationProperties.viewing.search) {
-                    var searchOptions = this.config.response.itemInfo.itemData.applicationProperties.viewing.search;
-                
-                    array.forEach(searchOptions.layers, lang.hitch(this, function (searchLayer) {
-                        //we do this so we can get the title specified in the item
-                        var operationalLayers = this.config.itemInfo.itemData.operationalLayers;
-                        var layer = null;
-                        array.some(operationalLayers, function (opLayer) {
-                            if (opLayer.id === searchLayer.id) {
-                                layer = opLayer;
-                                return true;
-                            }
-                        });
-
-                          if (layer && layer.hasOwnProperty("url")) {
-                            var source = {};
-                            var url = layer.url;
-                            var name = layer.title || layer.name;
-
-                            if (esriLang.isDefined(searchLayer.subLayer)) {
-                                url = url + "/" + searchLayer.subLayer;
-                                array.some(layer.layerObject.layerInfos, function (info) {
-                                    if (info.id == searchLayer.subLayer) {
-                                        name += " - " + layer.layerObject.layerInfos[searchLayer.subLayer].name;
-                                        return true;
-                                    }
-                                });
-                            }
-
-                            source.featureLayer = new FeatureLayer(url);
-
-
-                            source.name = name;
-
-
-                            source.exactMatch = searchLayer.field.exactMatch;
-                            source.displayField = searchLayer.field.name;
-                            source.searchFields = [searchLayer.field.name];
-                            source.placeholder = searchOptions.hintText;
-                            defaultSources.push(source);
-                            searchLayers = true;
-                        }
-
-                    }));
-                }
-
-
-                search.set("sources", defaultSources);
                 search.startup();
-                
-                //set the first non esri layer as active if search layers are defined. 
-                var activeIndex = 0;
-                if (searchLayers) {
-                    array.some(defaultSources, function (s, index) {
-                        if (!s.hasEsri) {
-                            activeIndex = index;
-                            return true;
-                        }
-                    });
 
-                    if (activeIndex > 0) {
-                        search.set("activeSourceIndex", activeIndex);
-                    }
-                }
 
                 query(".arcgisSearch .searchBtn").style("backgroundColor", this.config.theme.toString());
                 query(".arcgisSearch .esriIconSearch").style("color", this.config.iconcolortheme.toString());
@@ -243,6 +137,52 @@ declare, win, array, Color, all, Deferred, lang, domUtils, esriRequest, esriLang
 
 
             }));
+
+
+            //Feature Search or find (if no search widget)
+            if ((this.config.find || (this.config.customUrlLayer.id !== null && this.config.customUrlLayer.fields.length > 0 && this.config.customUrlParam !== null))) {
+                require(["esri/dijit/Search", "esri/urlUtils"], lang.hitch(this, function (Search, urlUtils) {
+                    var source = null,
+                        value = null,
+                        searchLayer = null;
+
+                    var urlObject = urlUtils.urlToObject(document.location.href);
+                    urlObject.query = urlObject.query || {};
+                    urlObject.query = esriLang.stripTags(urlObject.query);
+                    //Support find or custom url param 
+                    if (this.config.find) {
+                        value = decodeURIComponent(this.config.find);
+                    } else if (urlObject.query[this.config.customUrlParam.toLowerCase()]) {
+                        value = urlObject.query[this.config.customUrlParam.toLowerCase()];
+
+                        searchLayer = this.map.getLayer(this.config.customUrlLayer.id);
+                        if (searchLayer) {
+
+                            var searchFields = this.config.customUrlLayer.fields[0].fields;
+                            source = {
+                                exactMatch: true,
+                                outFields: ["*"],
+                                featureLayer: searchLayer,
+                                displayField: searchFields[0],
+                                searchFields: searchFields
+                            };
+                        }
+                    }
+                    var urlSearch = new Search({
+                        map: this.map
+                    });
+
+                    if (source) {
+                        urlSearch.set("sources", [source]);
+                    }
+                    urlSearch.on("load", lang.hitch(this, function () {
+                        urlSearch.search(value);
+                    }));
+
+                    urlSearch.startup();
+
+                }));
+            }
 
             require(["application/sniff!locate?esri/dijit/LocateButton"], lang.hitch(this, function (LocateButton) {
                 if (!LocateButton) {
@@ -260,7 +200,6 @@ declare, win, array, Color, all, Deferred, lang, domUtils, esriRequest, esriLang
                 query(".LocateButton .zoomLocateButton").style("background-color", this.config.theme.toString());
 
             }));
-
         },
         _addToolbarWidgets: function () {
 
@@ -268,8 +207,10 @@ declare, win, array, Color, all, Deferred, lang, domUtils, esriRequest, esriLang
                 basemapDef = new Deferred(),
                 layerDef = new Deferred(),
                 tableDef = new Deferred(),
-                printDef = new Deferred();
-            var toolDeferreds = [shareDef, tableDef, printDef, layerDef, basemapDef];
+                printDef = new Deferred(),
+                measureDef = new Deferred(),
+                bookmarksDef = new Deferred();
+            var toolDeferreds = [measureDef, shareDef, tableDef, printDef, layerDef, basemapDef, bookmarksDef];
 
             /*Toolbar widgets ( print, layers, share, basemap etc)*/
 
@@ -280,8 +221,8 @@ declare, win, array, Color, all, Deferred, lang, domUtils, esriRequest, esriLang
                     return;
                 }
                 this.tableHandler = null;
-                /*Create the table if a layer and field have been defined or if there's a feature layer in the map
-                */
+                // Create the table if a layer and field have been 
+                // defined or if there's a feature layer in the map
                 var layer = null;
 
                 if (this.config.tableLayer && this.config.tableLayer.id) {
@@ -301,10 +242,10 @@ declare, win, array, Color, all, Deferred, lang, domUtils, esriRequest, esriLang
                 }
 
                 if (layer === null) {
-                    //get first feature layer from map if no feature layers then return
+                    // Get first feature layer from map if no feature layers then return
                     array.some(this.map.graphicsLayerIds, lang.hitch(this, function (id) {
                         var l = this.map.getLayer(id);
-                        if (l && l.type === "Feature Layer") {
+                        if (l && l.type === "Feature Layer" && l.supportsAdvancedQueries === true) {
                             layer = l;
                             return true;
                         }
@@ -312,6 +253,7 @@ declare, win, array, Color, all, Deferred, lang, domUtils, esriRequest, esriLang
                 }
                 //if no layer don't create table 
                 if (layer === null) {
+                    console.log("Configure the app to select a layer that supports Advanced Queries for the Table");
                     tableDef.resolve(null);
                     return;
                 }
@@ -347,7 +289,6 @@ declare, win, array, Color, all, Deferred, lang, domUtils, esriRequest, esriLang
                 }, "featureTable");
 
 
-
                 //Use the popup selection symbol (Need to test this)
                 //fillSymbol, lineSymbol, markerSymbol
                 var selectionSymbol = null;
@@ -369,22 +310,22 @@ declare, win, array, Color, all, Deferred, lang, domUtils, esriRequest, esriLang
                 this.tableHandler.pause();
 
                 table.startup();
-
-
-
-
                 //sync feature selection and table selection
                 on(table, "dgrid-select", lang.hitch(this, function (evt) {
                     if (evt && evt.length > 0) {
                         var id = evt[0].data[layer.objectIdField];
-
-                        for (var i = 0; i < layer.graphics.length; i++) {
-                            var f = layer.graphics[i];
-                            if (f.attributes[layer.objectIdField] === id) {
+                        var q = new esriQuery();
+                        q.objectIds = [id];
+                        q.outFields = ["*"];
+                        if (layer.graphics && layer.graphics.length && layer.graphics.length === 0) {
+                            console.log("No graphic associated with the selected row");
+                        }
+                        layer.queryFeatures(q).then(lang.hitch(this, function (e) {
+                            if (e.features && e.features.length && e.features.length > 0) {
+                                var f = e.features[0];
                                 this._zoomToFeature(f.geometry, selectionSymbol);
                             }
-                        }
-
+                        }));
                     } else {
                         return;
                     }
@@ -410,12 +351,21 @@ declare, win, array, Color, all, Deferred, lang, domUtils, esriRequest, esriLang
 
                 this._createContainer("print_container", "printDiv");
 
-
                 var layoutOptions = {
                     "titleText": this.config.title,
                     "scalebarUnit": this.config.units,
                     "legendLayers": []
                 };
+
+                //add text box for title to print dialog
+                var titleNode = domConstruct.create("input", {
+                    id: "print_title",
+                    className: "printTitle",
+                    placeholder: this.config.i18n.tools.printTitlePrompt
+                }, domConstruct.create("div"));
+
+
+                domConstruct.place(titleNode, "printDiv");
 
                 this.config.printformat = this.config.printformat.toLowerCase();
                 if (this.config.printlegend) {
@@ -428,6 +378,7 @@ declare, win, array, Color, all, Deferred, lang, domUtils, esriRequest, esriLang
                     }, domConstruct.create("div", {
                         "class": "checkbox"
                     }));
+
 
                     var labelNode = domConstruct.create("label", {
                         "for": "legend_ck",
@@ -467,6 +418,8 @@ declare, win, array, Color, all, Deferred, lang, domUtils, esriRequest, esriLang
                     }));
 
                     this._updateTheme();
+                } else {
+                    domStyle.set("printDiv", "height", "80px");
                 }
 
                 if (this.config.printlayouts) {
@@ -501,7 +454,8 @@ declare, win, array, Color, all, Deferred, lang, domUtils, esriRequest, esriLang
                         templates = array.map(templateNames, lang.hitch(this, function (name) {
                             var plate = new PrintTemplate();
                             plate.layout = plate.label = name;
-                            plate.format = this.format;
+                            plate.format = this.config.printformat;
+
                             plate.layoutOptions = layoutOptions;
                             return plate;
                         }));
@@ -512,6 +466,16 @@ declare, win, array, Color, all, Deferred, lang, domUtils, esriRequest, esriLang
                             templates: templates,
                             url: this.config.helperServices.printTask.url
                         }, domConstruct.create("div"));
+
+                        print.on("print-start", lang.hitch(this, function () {
+                            var printBox = dom.byId("print_title");
+                            if (printBox.value) {
+                                array.forEach(print.templates, lang.hitch(this, function (template) {
+                                    template.layoutOptions.titleText = printBox.value;
+                                }));
+                            }
+                        }));
+
                         domConstruct.place(print.printDomNode, dom.byId("printDiv"), "first");
 
 
@@ -524,13 +488,13 @@ declare, win, array, Color, all, Deferred, lang, domUtils, esriRequest, esriLang
                         layout: "Letter ANSI A Landscape",
                         layoutOptions: layoutOptions,
                         label: this.config.i18n.tools.printLayouts.label1 + " ( " + this.config.printformat + " )",
-                        format: this.format
+                        format: this.config.printformat
                     },
                     {
                         layout: "Letter ANSI A Portrait",
                         layoutOptions: layoutOptions,
                         label: this.config.i18n.tools.printLayouts.label2 + " ( " + this.config.printformat + " )",
-                        format: this.format
+                        format: this.config.printformat
                     },
                     {
                         layout: "Letter ANSI A Landscape",
@@ -550,6 +514,16 @@ declare, win, array, Color, all, Deferred, lang, domUtils, esriRequest, esriLang
                         templates: templates,
                         url: this.config.helperServices.printTask.url
                     }, domConstruct.create("div"));
+
+                    print.on("print-start", lang.hitch(this, function () {
+                        var printBox = dom.byId("print_title");
+                        if (printBox.value) {
+                            array.forEach(print.templates, lang.hitch(this, function (template) {
+                                template.layoutOptions.titleText = printBox.value;
+                            }));
+                        }
+                    }));
+
                     domConstruct.place(print.printDomNode, dom.byId("printDiv"), "first");
                     print.startup();
 
@@ -558,13 +532,60 @@ declare, win, array, Color, all, Deferred, lang, domUtils, esriRequest, esriLang
                 printDef.resolve(btn);
                 return printDef.promise;
             }));
+            require(["application/sniff!measure?esri/dijit/Measurement"], lang.hitch(this, function (Measurement) {
+                if (!Measurement) {
+                    measureDef.resolve(null);
+                    return;
+                }
 
+
+                var btn = this._createToolbarButton("measure_toggle", "icon-measure", this.config.i18n.tools.measureTool);
+
+                on(btn, "click", lang.hitch(this, function () {
+                    this._displayContainer("measure_container", "measure_toggle");
+                }));
+
+                this._createContainer("measure_container", "measureDiv");
+                var areaUnit = (this.config.units === "metric") ? "esriSquareKilometers" : "esriSquareMiles";
+                var lengthUnit = (this.config.units === "metric") ? "esriKilometers" : "esriMiles";
+                var options = {
+                    map: this.map,
+                    defaultAreaUnit: areaUnit,
+                    defaultLengthUnit: lengthUnit
+                };
+                var measureWidget = new Measurement(options, dom.byId("measureDiv"));
+
+                measureWidget.startup();
+                query(".tools-menu").on("click", lang.hitch(this, function (e) {
+                    if (e.target && e.target.parentNode && e.target.parentNode.id && e.target.parentNode.id !== "measure_toggle") {
+                        var tool = measureWidget.getTool();
+                        if (tool) {
+                            measureWidget.setTool(tool.toolName, false);
+                            measureWidget.clearResult();
+                            //reactivate map click
+                            this.map.setInfoWindowOnClick(true);
+                        }
+                    }
+                }));
+                query(".esriMeasurement .dijitButtonNode").on("click", lang.hitch(this, function (e) {
+                    var tool = measureWidget.getTool();
+
+                    if (tool) {
+                        this.map.setInfoWindowOnClick(false);
+                    } else {
+                        this.map.setInfoWindowOnClick(true);
+                    }
+                }));
+                measureDef.resolve(btn);
+                return measureDef.promise;
+
+            }));
             require(["application/sniff!basemaps?esri/dijit/BasemapGallery"], lang.hitch(this, function (BasemapGallery) {
-
                 if (!BasemapGallery) {
                     basemapDef.resolve(null);
                     return;
                 }
+
                 var galleryOptions = {
                     showArcGISBasemaps: true,
                     portalUrl: this.config.sharinghost,
@@ -575,10 +596,10 @@ declare, win, array, Color, all, Deferred, lang, domUtils, esriRequest, esriLang
                 var btn = this._createToolbarButton("basemap_toggle", "icon-basemap", this.config.i18n.tools.basemapTool);
 
                 on(btn, "click", lang.hitch(this, function () {
-                    this._displayContainer("gallery_container", "basemap_toggle");
+                    this._displayContainer("basemap_container", "basemap_toggle");
                 }));
 
-                this._createContainer("gallery_container", "galleryDiv");
+                this._createContainer("basemap_container", "galleryDiv");
 
                 var gallery = new BasemapGallery(galleryOptions, dom.byId("galleryDiv"));
 
@@ -588,15 +609,38 @@ declare, win, array, Color, all, Deferred, lang, domUtils, esriRequest, esriLang
                 return basemapDef.promise;
 
             }));
+            require(["application/sniff!bookmarks?esri/dijit/Bookmarks"], lang.hitch(this, function (Bookmarks) {
+                var webmapBookmarks = this.config.response.itemInfo.itemData.bookmarks || null;
+                if (!Bookmarks || !webmapBookmarks) {
+                    bookmarksDef.resolve(null);
+                    return;
+                }
 
-            require(["application/sniff!layerlist?application/TableOfContents"], lang.hitch(this, function (TableOfContents) {
+                var btn = this._createToolbarButton("bookmark_toggle", "icon-book", this.config.i18n.tools.bookmarkTool);
 
-                if (!TableOfContents) {
+                on(btn, "click", lang.hitch(this, function () {
+                    this._displayContainer("bookmark_container", "bookmark_toggle");
+                }));
+
+                this._createContainer("bookmark_container", "bookmarkDiv");
+
+                var bookmarkWidget = new Bookmarks({
+                    map: this.map,
+                    bookmarks: webmapBookmarks
+                }, domConstruct.create("div", {}, "bookmarkDiv"));
+
+                bookmarksDef.resolve(btn);
+                return bookmarksDef.promise;
+
+            }));
+            require(["application/sniff!layerlist?esri/dijit/LayerList" ], lang.hitch(this, function (LayerList) {
+
+                if (!LayerList) {
                     layerDef.resolve(null);
                     return;
                 }
 
-                var layers = this.config.response.itemInfo.itemData.operationalLayers;
+                var layers = arcgisUtils.getLayerList(this.config.response);
                 if (layers && layers.length && layers.length === 0) {
                     console.log("No Map Layers");
                     return;
@@ -610,13 +654,13 @@ declare, win, array, Color, all, Deferred, lang, domUtils, esriRequest, esriLang
                 this._createContainer("layer_container", "layerDiv");
 
 
-                var toc = new TableOfContents({
+                var toc = new LayerList({
                     map: this.map,
                     layers: layers
                 }, domConstruct.create("div", {}, "layerDiv"));
                 toc.startup();
                 layerDef.resolve(btn);
-                return layerDef.proimse;
+                return layerDef.promise;
             }));
 
             require(["application/sniff!share?application/ShareDialog"], lang.hitch(this, function (ShareDialog) {
@@ -652,11 +696,16 @@ declare, win, array, Color, all, Deferred, lang, domUtils, esriRequest, esriLang
             //Wait until all the tools have been created then position on the toolbar
             //otherwise we'd get the tools placed in a random order 
             all(toolDeferreds).then(lang.hitch(this, function (results) {
-                array.forEach(results, function (node) {
+                array.forEach(results, lang.hitch(this, function (node) {
                     if (node) {
-                        domConstruct.place(node, "toolbar-trailing");
+                        var li = domConstruct.create("li", {});
+                        domConstruct.place(node, li);
+                        domConstruct.place(li, "toolbar-menu");
+
+                        var ul = domConstruct.create("ul", {}, li, "last");
+                        domClass.add(ul, "tools-submenu");
                     }
-                });
+                }));
                 this._updateTheme();
             }));
 
@@ -713,39 +762,19 @@ declare, win, array, Color, all, Deferred, lang, domUtils, esriRequest, esriLang
         },
         // create a map based on the input web map id
         _createWebMap: function (itemInfo) {
-
-            //modify the extent if provided via url params
-            if (this.config.extent) {
-                var extent = decodeURIComponent(this.config.extent).split(",");
-                if (extent && extent.length && extent.length === 4) {
-                    itemInfo.item.extent = [
-                        [parseFloat(extent[0]), parseFloat(extent[1])],
-                        [parseFloat(extent[2]), parseFloat(extent[3])]
-                    ];
-                }
-            }
-
-            //Define map options
-            var options = {
+            itemInfo = this._setExtent(itemInfo);
+            var mapOptions = {
                 slider: this.config.zoom,
                 sliderPosition: this.config.zoom_position,
-                logo: (this.config.logoimage === null) ? true : false
+                logo: (this.config.logoimage === null || this.config.logointitle === true) ? true : false
             };
+            mapOptions = this._setLevel(mapOptions);
+            mapOptions = this._setCenter(mapOptions);
 
-            //specify center and zoom if provided as url params 
-            if (this.config.level) {
-                options.zoom = this.config.level;
-            }
-            if (this.config.center) {
-                var points = this.config.center.split(",");
-                if (points && points.length === 2) {
-                    options.center = [parseFloat(points[0]), parseFloat(points[1])];
-                }
-
-            }
             arcgisUtils.createMap(itemInfo, "mapDiv", {
-                mapOptions: options,
+                mapOptions: mapOptions,
                 usePopupManager: true,
+                layerMixins: this.config.layerMixins || [],
                 editable: this.config.editable,
                 bingMapsKey: this.config.bingKey
             }).then(lang.hitch(this, function (response) {
@@ -753,24 +782,51 @@ declare, win, array, Color, all, Deferred, lang, domUtils, esriRequest, esriLang
                 this.config.response = response;
 
                 if (this.config.logoimage) {
+                    var logoNode = null;
 
-                    query(".esriControlsBR").forEach(lang.hitch(this, function (node) {
-                        var link = null;
-                        if (this.config.logolink) {
-                            link = domConstruct.create("a", {
-                                href: this.config.logolink,
-                                target: "_blank"
-                            }, node);
+                    if (this.config.logointitle === true && this.config.showtitle) {
+                        //add logo to title 
+                        logoNode = domConstruct.create("div", {
+                            id: "title-logo"
+                        });
+                        domConstruct.place(logoNode, dom.byId("header"), "first");
+                        //resize logo if font-size is resized. 
+                        if (this.config.titlefontsize) {
+                            domStyle.set(logoNode, "width", this.config.titlefontsize);
+                            domStyle.set(logoNode, "height", this.config.titlefontsize);
+                            domStyle.set(logoNode, "line-height", this.config.titlefontsize);
                         }
 
-                        var logoimg = domConstruct.create("img", {
-                            width: "65px",
-                            height: "36px",
-                            src: this.config.logoimage,
-                            "class": "logo"
-                        }, link || node);
 
-                    }));
+                    } else {
+                        //add logo to map 
+                        query(".esriControlsBR").forEach(lang.hitch(this, function (node) {
+                            logoNode = node;
+                        }));
+                    }
+
+
+                    var link = null;
+                    if (this.config.logolink) {
+                        link = domConstruct.create("a", {
+                            href: this.config.logolink,
+                            target: "_blank"
+                        }, logoNode);
+                    }
+
+                    domConstruct.create("img", {
+                        width: "65px",
+                        height: "36px",
+                        id: "logo-image",
+                        src: this.config.logoimage,
+                        "class": "logo"
+                    }, link || logoNode);
+                    if (this.config.titlefontsize) {
+                        query("#logo-image").forEach(lang.hitch(this, function (node) {
+                            domStyle.set(node, "width", this.config.titlefontsize);
+                            domStyle.set(node, "height", this.config.titlefontsize);
+                        }));
+                    }
                 }
 
 
@@ -778,11 +834,11 @@ declare, win, array, Color, all, Deferred, lang, domUtils, esriRequest, esriLang
                 domClass.add(this.map.infoWindow.domNode, "light");
                 query(".esriPopup .pointer").style("backgroundColor", this.config.theme.toString());
                 query(".esriPopup .titlePane").style("backgroundColor", this.config.theme.toString());
-       
+
                 //Set the font color using the configured color value
                 query(".esriPopup .titlePane").style("color", this.config.color.toString());
-                query(".esriPopup .titleButton").style("color", this.config.color.toString());  
-                
+                query(".esriPopup .titleButton").style("color", this.config.color.toString());
+
 
                 //Add a title 
                 this.config.title = this.config.title || response.itemInfo.item.title;
@@ -790,7 +846,12 @@ declare, win, array, Color, all, Deferred, lang, domUtils, esriRequest, esriLang
                 document.title = this.config.title;
                 //add application title 
                 if (this.config.showtitle) {
-                    dom.byId("titleDiv").innerHTML = this.config.title;
+                    var title_node = dom.byId("titleDiv");
+                    title_node.innerHTML = this.config.title;
+
+                    if (this.config.titlefontsize) {
+                        domStyle.set(title_node, "font-size", this.config.titlefontsize);
+                    }
                 } else {
                     domClass.add(document.body, "no-title");
                     registry.byId("bc").resize();
@@ -903,6 +964,7 @@ declare, win, array, Color, all, Deferred, lang, domUtils, esriRequest, esriLang
             query(".tool_container").forEach(lang.hitch(this, function (container_node) {
                 //close any open containers when another tool is open
                 var visible = domStyle.get(container_node, "display");
+
                 if (visible === "block" && (container !== container_node.id)) {
                     domUtils.hide(container_node);
                 }
@@ -918,11 +980,11 @@ declare, win, array, Color, all, Deferred, lang, domUtils, esriRequest, esriLang
 
         },
         _displayContainer: function (container, button) {
-
             this._closeContainers(container);
 
             var node = dom.byId(container);
             domUtils.toggle(node);
+
 
             if (domStyle.get(node, "display") === "none") {
                 //remove tool selected style from node
@@ -933,13 +995,11 @@ declare, win, array, Color, all, Deferred, lang, domUtils, esriRequest, esriLang
             }
 
             var pos = domGeometry.position(dom.byId(button));
+
             var winWidth = win.getBox();
-            var buttonSize = pos.x + pos.w;
-            if (buttonSize === winWidth.w) {
-                domStyle.set(node, "right", 0);
-            } else {
-                domStyle.set(node, "right", (pos.w) + "px");
-            }
+            var loc = Math.abs(winWidth.w - pos.x);
+            loc = Math.abs(loc - pos.w);
+            domStyle.set(node, "right", Math.ceil(loc) + "px");
         },
         _navigateStack: function (panelLabel, buttonLabel) {
             var stackContainer = registry.byId("stackContainer");
@@ -1081,8 +1141,8 @@ declare, win, array, Color, all, Deferred, lang, domUtils, esriRequest, esriLang
             //Also update the menu icon to match the tool color. 
             query(".tool-label").style("color", this.config.color.toString());
             query("[class^='icon-'], [class*=' icon-']").style("color", this.config.iconcolortheme.toString());
-            
-            if(this.map){
+
+            if (this.map) {
                 this.map.resize();
                 this.map.reposition();
                 registry.byId("bc").resize();
@@ -1090,6 +1150,41 @@ declare, win, array, Color, all, Deferred, lang, domUtils, esriRequest, esriLang
             }
 
 
+        },
+        _setLevel: function (options) {
+            var level = this.config.level;
+            //specify center and zoom if provided as url params 
+            if (level) {
+                options.zoom = level;
+            }
+            return options;
+        },
+
+        _setCenter: function (options) {
+            var center = this.config.center;
+            if (center) {
+                var points = center.split(",");
+                if (points && points.length === 2) {
+                    options.center = [parseFloat(points[0]), parseFloat(points[1])];
+                }
+            }
+            return options;
+        },
+
+        _setExtent: function (info) {
+            var e = this.config.extent;
+            //If a custom extent is set as a url parameter handle that before creating the map
+            if (e) {
+                var extArray = e.split(",");
+                var extLength = extArray.length;
+                if (extLength === 4) {
+                    info.item.extent = [
+                        [parseFloat(extArray[0]), parseFloat(extArray[1])],
+                        [parseFloat(extArray[2]), parseFloat(extArray[3])]
+                    ];
+                }
+            }
+            return info;
         }
     });
 });
