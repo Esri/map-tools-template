@@ -66,6 +66,9 @@ define({
         ]
     },
     "layerlist": true,
+    "includesublayers":true,
+    "includelayerlegend": true,
+    "includelayeropacity": true,
     "basemaps": true,
     "print": true,
     "printlegend": true,
@@ -111,6 +114,6 @@ define({
         }]
     },
     //Replace these with your own bitly key
-    "bitlyLogin": "",
-    "bitlyKey": ""
+    "bitlyLogin": "arcgis",
+    "bitlyKey": "R_b8a169f3a8b978b9697f64613bf1db6d"
 });
