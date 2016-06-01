@@ -114,8 +114,8 @@ array, declare, kernel, lang, Evented, Deferred, string, domClass, all, esriConf
                     this._mixinAll();
                     // then execute these async
                     all({
-                        // webmap item
-                        item: this.queryItem(),
+                        // get item data from local config or from ArcGIS.com
+                        item: this.config.itemInfo || this.queryItem(),
                         // group information
                         groupInfo: this.queryGroupInfo(),
                         // group items
