@@ -16,27 +16,27 @@
  */
 define({
   "map": {
-    "error": "マップを作成できません"
+    "error": "Nije moguće stvoriti kartu"
   },
   "tools": {
-    "bookmarkTool": "ブックマーク",
-    "basemapTool": "ベースマップ",
-    "legendTool": "凡例",
-    "detailsTool": "詳細",
-    "measureTool": "計測",
-    "shareTool": "共有",
-    "layerTool": "レイヤ",
-    "tableTool": "テーブル",
-    "editTool": "編集",
-    "printTool": "印刷",
-    "printLegend": "凡例を出力に追加",
+    "bookmarkTool": "Knjižne oznake",
+    "basemapTool": "Kartografske podloge",
+    "legendTool": "Legenda",
+    "detailsTool": "Pojedinosti",
+    "measureTool": "Mjera",
+    "shareTool": "Podijeli",
+    "layerTool": "Slojevi",
+    "tableTool": "Tablica",
+    "editTool": "Uredi",
+    "printTool": "Ispis",
+    "printLegend": "Dodaj legendu u izlaz",
     "printLayouts": {
-      "label1": "横",
-      "label2": "縦",
-      "label3": "横",
-      "label4": "縦"
+      "label1": "Vodoravno",
+      "label2": "Okomito",
+      "label3": "Vodoravno",
+      "label4": "Okomito"
     },
-    "printTitle": "タイトル",
-    "printTitlePrompt": "カスタム タイトルの追加"
+    "printTitle": "Naziv",
+    "printTitlePrompt": "Dodaj prilagođeni naslov"
   }
 });
