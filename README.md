@@ -1,100 +1,76 @@
-# Map Tools
 
-The Application Boilerplate is a starter application for building custom templates with the ArcGIS API for JavaScript.
-
-## Features
-
-
-[View it live](https://www.arcgis.com/apps/MapTools/index.html)
+Map Tools
+=====================
+*Map Tools* is a configurable application template that enables you to display an ArcGIS web map using a variety of tools. 
 
 
-## Getting Started
+[View it live] (http://www.arcgis.com/apps/MapTools/index.html)
+#July 2015 Release Updates
+- **Specify title font size:** Added support for changing the font size of the title. To specify font size update config/defaults.js and specify the font size using the titlefontsize property. 
+-  **Custom URL Parameters:** The template now supports the ability to define a custom url parameter along with the search layer and field. This can be used to build applications that display a particular feature at application startup. For example if your app displays parcel features you could define a custom url parameter called parcel and then users can navigate there directly by appending ?parcel=1245243242343 and the map will zoom to that feature on startup. Define these values using by setting the customUrlParam and customUrlLayer properties in config/defaults.js. 
+-  **Support for toggling sub layers:** The layers feature now allows you to toggle the visilibity of sub layers. 
+-  **Define custom print layout title:** The print feature now provides an option for users to define a custom title for the print layout. 
+-  **Add bookmark widget:** If your web map contains bookmarks enable the bookmark tool by setting bookmarks to true in config/defaults.js
 
-Review the following ArcGIS.com help topics for details on Templates:
 
-*	[Writing your first application](https://developers.arcgis.com/en/javascript/jstutorials/intro_firstmap_amd.html)
-*   [About web application templates](http://resources.arcgis.com/en/help/arcgisonline/#/*   About_web_application_templates/010q000000nt000000/)
-*   [Creating web application templates](http://resources.arcgis.com/en/help/arcgisonline/#/Creating_web_application_templates/010q00000072000000)
-*   [Adding configurable parameters to templates](http://resources.arcgis.com/en/help/arcgisonline/#/Adding_configurable_parameters_to_templates/010q000000ns000000/)
+#Features
+The template can be configured using the following options:
 
-## Folders and Files
+- **Map:** Choose the web map used in your application.
+- **Color Scheme:** Configurable color scheme.
+- **Show Title:** Choose whether to include an application title. 
+- **Title Text:** The application title. The default title is the web map name.
+- **Logo:** Choose a custom logo for your application.
+- **Overview Map:** Display a retractable overview map to add context for panning and zooming.
+- **Legend:** Display a legend for map layers. *
+- **Details:** Display the web map item description. *
+- **Print:** Enables printing the map at the current extent. It can be configured to include a legend and supports different layout options.
+- **Layer List:** Enables toggling the visibility of operational layers within the web map. *
+- **Basemaps:** Enables the display of the basemap gallery. 
+- **Bookmarks:** Enables the use of web map bookmarks for navigation. *
+- **Share:** Allows users to share the application with others via email, Twitter, or Facebook.
+- **Search:** Displays the Search box to enable navigation to addresses and places. Can also be configured to search layers and fields. 
+- **Search** for locations within current extent: Enable toggling of search within the current map extent only.
 
-The template consists of the following folders and files:
+*These options will appear in the application when the web map has properties or layers that support them.
 
-**/config/:** A folder for your application's configuration files. 
 
-*   **defaults.js:** Define the default configuration information for the template. You can use this file to specify things like a default web map id, a proxy url, default services, a Bing maps key, default color theme and other template-specific settings.
- 
-**/css/:** Contains the CSS files for the application.
 
-*	**main.css** This file contains the map styles that set the margin, padding and initial height (100%).
+#Instructions
 
-**/images/**: Contains images used by the application.
+1. Download and unzip the .zip file or clone the repo.
+2. Web-enable the directory. 
+3. Access the .html page in a browser
 
-**/js/**: Contains 3 JavaScript files and 1 folder:
+Note: If your application edits features in a feature service, contains secure services or web maps that aren't shared publicly or generates requests that exceed 200 characters you may need to setup and use a proxy page. Common situations where you may exceed the URL length are using complex polygons as input to a task or specifying a spatial reference using well-known text (WKT). For details on installing and configuring a proxy page see [Using a proxy page](https://developers.arcgis.com/javascript/jshelp/ags_proxy.html).
 
-*   **/nls/:** The nls folder contains a file called resources.js that contains the strings used by the application. If the application needs to be supported by [multiple locales](https://developers.arcgis.com/en/javascript/jshelp/localization.html) you can create a folder for each locale and inside that folder add a resources.js file with the translated strings. See the resources.js file in the nls/fr folder for an example of this in French.
-*   **main.js:** Creates the map based on configuration info. You will write all your main application logic in here.
-*   **template.js:** Module that takes care of "template"-specific work like retrieving the application configuration settings by appid, getting the url parameters (web map id and appid), handling localization details and retrieving organization specific info if applicable. You will most likely not need to modify this file. Also sets the [proxy](https://developers.arcgis.com/en/javascript/jshelp/ags_proxy.html) and geometry service if the url's have been provided in the defaults.js file or are available from the org. Once executed you'll have access to an object that contains properties that give you access to the following:
-    *   Template specific properties
-    *   appid
-    *   webmap
-    *   helperServices: geometry, print, locator service urls
-    *   i18n: Strings and isRightToLeft property that can be used to determine if the application is being viewed from a language where text is read left-to-right like Hebrew or Arabic.
-    *   proxy  url
-*   **templateOptions.js:** Options file for configuring your template to query for specific resources and items. You can edit this file and your template can enable or disable querying for things such as localization files, ArcGIS group information, group items, custom url parameters, etc.
-    
-**index.html**: The default html file for the application.
 
-**/resources/**: Contains helpful files for your application.
-*   **resources/configurationPanel.js** Default configuration panel settings for the template. This is only applicable to configurable templates. This example will create a configuration panel with one dropdown list that contains three template color choices (seaside, chrome, pavement). When the templateConfig.js module retrieves any configurable settings you'll get the theme name back in a parameter named theme. Then you can apply the necessary css to your application to apply the new colors - like change the border color etc. See the [Adding configurable parameters to templates](http://resources.arcgis.com/en/help/arcgisonline/#/Adding_configurable_parameters_to_templates/010q000000ns000000/) help topic for more details.
+#Requirements
 
-## Instructions
+- Notepad or HTML editor
+- Some background with HTML, CSS and JavaScript
+- Experience with the ArcGIS API for JavaScript is helpful. 
 
-1. Download and unzip the .zip file or clone the repository.
-2. Web-enable the directory.
-3. Access the .html page.
-4. Start writing your template!
+#Resources
 
-[New to Github? Get started here.](https://github.com/)
+- [ArcGIS API for JavaScript Resource Center](http://help.arcgis.com/en/webapi/javascript/arcgis/index.html)
 
-## Requirements
+#Issues
+Found a bug or want to request a new feature? Please let us know by submitting an issue. 
 
-* Text or HTML editor.
-* A little background with JavaScript.
-* Experience with the [ArcGIS JavaScript API](http://www.esri.com/) would help.
+#Contributing
+Anyone and everyone is welcome to contribute. 
 
-## Resources
+#Licensing 
 
-* [Community](https://developers.arcgis.com/en/javascript/jshelp/community.html)
-* [ArcGIS for JavaScript API Resource Center](http://help.arcgis.com/en/webapi/javascript/arcgis/index.html)
-* [ArcGIS Blog](http://blogs.esri.com/esri/arcgis/)
-* [twitter@esri](http://twitter.com/esri)
+Copyright 2012 Esri
 
-## Issues
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
 
-Find a bug or want to request a new feature?  Please let us know by submitting an issue.
+http://www.apache.org/licenses/LICENSE-2.0
 
-## Contributing
+Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
 
-Esri welcomes contributions from anyone and everyone. Please see our [guidelines for contributing](https://github.com/esri/contributing).
-
-## Licensing
-Copyright 2013 Esri
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-   http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-
-A copy of the license is available in the repository's [license.txt](https://raw.github.com/Esri/application-boilerplate-js/master/license.txt) file.
-
-[](Esri Tags: ArcGIS ArcGIS Online Web Application boilerplate template widget dijit Esri JavaScript application)
+A copy of the license is available in the repository's [license.txt](license.txt?raw=true) file.
+[](Esri Tags: ArcGIS Online Web Application Templates) 
 [](Esri Language: JavaScript)
