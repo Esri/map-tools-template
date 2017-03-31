@@ -97,10 +97,6 @@
 }
 html,
 body {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  width: 100%;
   font-family: Arial, Helvetica, sans-serif;
   background-repeat: repeat;
   background: #ebebeb;
@@ -113,6 +109,10 @@ g#mapDiv_graphics_layer path {
   margin-left: auto;
   width: 98%;
   height: 98%;
+}
+#toolbarDiv{
+  height:45px;
+  margin:auto;
 }
 .no-title .toolbar {
   -webkit-border-radius: 0;
@@ -140,42 +140,39 @@ g#mapDiv_graphics_layer path {
   font-size: 2em;
   font-weight: 400;
   margin: 0;
+  padding:2px;
 }
-#title-logo {
-  margin-left: 5px;
-  display: block;
-  overflow: hidden;
-  float: left;
-  line-height: 2em;
-  width: 2em;
-  height: 2em;
-  padding-top: 2px;
-  padding-bottom: 2px;
+
+#title-logo{
+    margin-left:5px;
+    display: block;
+    overflow:hidden;
+    float:left;
+    max-width:255px;
+    max-height: 40px;
+    line-height: 40px;
+
 }
-#title-logo img {
+#title-logo img{
   vertical-align: middle;
-  line-height: inherit;
-  max-width: 2em;
-  max-height: 2em;
 }
 .toolbar {
-  height: 42px;
-  line-height: 42px;
   width: 100%;
   background-repeat: repeat;
   vertical-align: middle;
-  -webkit-border-radius: 4px 4px 0 0;
-  border-radius: 4px 4px 0 0;
   border: none;
   z-index: 40;
 }
 #toolbar-leading {
   width: auto;
-/*280px*/
+  float:left;
   margin: auto;
   overflow-y: hidden;
+  height:45px;
+  line-height: 45px;
 }
 #toolbar-trailing {
+  height:100%;
   margin: auto;
 }
 .tools-menu {
@@ -189,8 +186,9 @@ g#mapDiv_graphics_layer path {
   padding: 0;
   margin: 0;
 }
-.toolbar [class^="icon-"] {
-  padding: 2px;
+.toolbar button{
+  height:100%;
+  min-width: 44px;
 }
 .toolbar button:active,
 .toolbar button:hover:enabled {
@@ -213,19 +211,15 @@ g#mapDiv_graphics_layer path {
 .toolbar button {
   display: inline-block;
   font-size: 1em;
-  height: 38px;
   cursor: pointer;
   background-color: transparent;
   background-repeat: no-repeat;
   border: none;
   overflow: hidden;
-  margin-right: 2px;
-  margin-left: 2px;
 }
 #toolbar-trailing button {
   display: inline-block;
   float: right;
-  margin-top: 2px;
 }
 .tool-label {
   color: #fff;
@@ -234,7 +228,7 @@ g#mapDiv_graphics_layer path {
 }
 @media screen and (max-width: 680px) {
   .tool-label {
-    display: none;
+    display: none !important;
   }
 }
 .toolbar button:disabled {
@@ -248,6 +242,10 @@ g#mapDiv_graphics_layer path {
   border: none;
   -webkit-border-radius: 0 0 4px 4px;
   border-radius: 0 0 4px 4px;
+}
+#mapbc{
+  width: 100%;
+  height: 100%;
 }
 #featureTable_menuNode_label{
   color:#333;
@@ -276,7 +274,7 @@ g#mapDiv_graphics_layer path {
   background-color: inherit;
 }
 .sidepanel_content {
-  padding: 4px;
+  padding:1em;
 }
 .sidepanel a {
   color: #369;
@@ -288,9 +286,6 @@ g#mapDiv_graphics_layer path {
 #mapDiv {
   width: 100%;
   height: 100%;
-  border-right: solid 1px none;
-  border-bottom: solid 1px none;
-  -webkit-border-radius: 0 0 4px 4px;
   border-radius: 0 0 4px 4px;
 }
 /*overwrite calcite styles*/
@@ -400,14 +395,13 @@ g#mapDiv_graphics_layer path {
   height: 30px;
   background-image: none;
   background-color: transparent;
-/*color:$light-text-color;
-    background-color: $light-tool-color;*/
   border: 1px solid #57585a;
 }
 /*Measure Window*/
 .tool_container {
   position: absolute;
   top: 0;
+  /*right:300px;*/
   z-index: 100;
 }
 #measureDiv {
@@ -418,14 +412,14 @@ g#mapDiv_graphics_layer path {
 }
 
 #printDiv{
-    padding:5px;
-    height:120px;
-    width:200px;
+  padding:5px;
+  height:110px;
+  width:200px;
 }
 .esriPrint{
   position: absolute;
-  bottom:5px;
-  right: 20px;
+  bottom:0;
+  right: 0;
   padding:5px;
   color:#fff;
 }
@@ -486,6 +480,123 @@ g#mapDiv_graphics_layer path {
   width: auto;
   overflow-y: auto;
 }
+.clippy{
+  width:13px;
+  height:13px;
+  color:#333;
+}
+.share-btn{
+  position: relative;
+   /* display: inline-block;*/
+    padding: 6px 12px;
+    font-size: 13px;
+    font-weight: bold;
+    line-height: 20px;
+    color: #333;
+    white-space: nowrap;
+    cursor: pointer;
+    background-color: #eee;
+    background-image: linear-gradient(#fcfcfc,#eee);
+    border: 1px solid #d5d5d5;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-appearance: none;
+    float:right;
+}
+
+ .icon-container {
+    margin: 10px 0 10px;
+    display: none;
+}
+@media only screen and (min-width: 720px) {
+     .icon-container {
+        display: block;
+    }
+}
+ .map-size-label {
+    float: left;
+    font-size: 15px;
+    margin: 0 5px 0 0;
+}
+.esriRTL .map-size-label {
+    float: right;
+    margin: 0 0 0 5px;
+}
+ .share-dialog-icon {
+    background-color: transparent;
+    border: none;
+    font-size: 24px;
+    line-height: 24px;
+    float: left;
+    color: rgba(0, 0, 0, 0.3) !Important;
+    cursor: pointer;
+    display: block;
+}
+.share-dialog-icon:visited {
+    color: rgba(0, 0, 0, 0.5);
+}
+.esriRTL .share-dialog-icon {
+    float: right;
+    margin: 0 0 0 10px;
+}
+ .share-dialog-icon:hover {
+    color: rgba(0, 0, 0, 0.8);
+}
+.share-map-url {
+    width: 50%;
+    min-width: 80%;
+    max-width: 80%;
+    height: 34px;
+    padding:7px 8px;
+    font-size: 14px;
+    color: #777;
+    border: 1px solid #dcdcdc;
+    /*margin: 0 0 10px;*/
+    overflow:hidden;
+}
+ .map-size-container {
+    margin: 0;
+    padding: 0 0 20px;
+}
+ .embed-map-size-clear,
+.icon-clear {
+    clear: both;
+}
+ .embed-map-size-dropdown {
+    float: left;
+}
+.esriRTL  .embed-map-size-dropdown {
+    float: right;
+}
+ .share-dialog-subheader {
+    font-size: 17px;
+    display: none;
+}
+@media only screen and (min-width: 720px) {
+    .share-dialog-subheader {
+        display: block;
+    }
+}
+ .share-dialog-textarea {
+    width: auto;
+    max-width: 90%;
+    width: 80%;
+    height: 50px;
+    font-size: 14px;
+    color: #777;
+    border: 1px solid #dcdcdc;
+    margin: 0 0 10px;
+}
+.share-dialog-extent {
+    height: 30px;
+    line-height: 30px;
+}
+input[type=checkbox] {
+    font-size: 1em;
+}
+
 /*Basemap Gallery*/
 .closemenu {
   position: absolute;
@@ -496,7 +607,8 @@ g#mapDiv_graphics_layer path {
   font-size: 1.2em;
 }
 #galleryDiv {
-  width: 380px;
+  margin:0 auto;
+  max-width:240px;
   height: 285px;
   overflow-y: scroll;
 }
@@ -507,6 +619,7 @@ g#mapDiv_graphics_layer path {
   background: #fff;
   border: 1px solid #ccc;
   z-index: 60;
+  margin-right: 0.5em;
 }
 .esriBookmarks {
   border: none;
@@ -518,95 +631,14 @@ g#mapDiv_graphics_layer path {
   border-width: 1px;
   margin:1px;
 }
-@media screen and (max-width: 640px) {
+@media screen and (max-width: 720px) {
   #galleryDiv {
-    width: 140px;
+    width: 122px;
     height: 265px;
   }
 }
-/*Share Dialog*/
-.icon-container {
-  margin: 10px 0 10px;
+.hide{
   display: none;
-}
-@media screen and (min-width: 620px) {
-  .icon-container {
-    display: block;
-  }
-}
-.map-size-label {
-  float: left;
-  font-size: 15px;
-  margin: 0 5px 0 0;
-}
-.esriRTL .map-size-label {
-  float: right;
-  margin: 0 0 0 5px;
-}
-.share-dialog-icon {
-/*font-size: 32px;
-    line-height: 32px;*/
-  font-size: 30px;
-  line-height: 30px;
-  float: left;
-  color: rgba(0,0,0,0.3) !important;
-  cursor: pointer;
-  margin: 0 10px 0 0;
-  text-decoration: none;
-  display: block;
-}
-.share-dialog-icon:visited {
-  color: rgba(0,0,0,0.5);
-}
-.esriRTL .share-dialog-icon {
-  float: right;
-  margin: 0 0 0 10px;
-}
-.share-dialog-icon:hover {
-  color: rgba(0,0,0,0.8);
-}
-.share-map-url {
-  width: 50%;
-  min-width: 80%;
-  max-width: 90%;
-  height: 25px;
-  font-size: 14px;
-  color: #777;
-  border: 1px solid #dcdcdc;
-  margin: 0 0 10px;
-}
-.map-size-container {
-  margin: 0;
-  padding: 0 0 20px;
-}
-.embed-map-size-clear,
-.icon-clear {
-  clear: both;
-}
-.embed-map-size-dropdown {
-  float: left;
-}
-.esriRTL .embed-map-size-dropdown {
-  float: right;
-}
-.share-dialog-subheader {
-  font-size: 17px;
-  display: none;
-}
-@media screen and (min-width: 620px) {
-  .share-dialog-subheader {
-    display: block;
-  }
-}
-.share-dialog-textarea {
-  width: auto;
-  max-width: 90%;
-  width: 80%;
-  height: 50px;
-  font-size: 14px;
-  color: #777;
-  border: 1px solid #dcdcdc;
-  margin: 0 0 10px;
 }
 #layerDiv {
   max-height: 300px;
@@ -646,4 +678,30 @@ g#mapDiv_graphics_layer path {
 }
 .esriLayerList .esriToggleButton{
   margin-right:8px;
+}
+
+.templatePicker, .templatePicker .grid .dojoxGridRow, .templatePicker .dojoxGridScrollbox, .templatePicker .dojoxGrid, .templatePicker .grid .dojoxGridCell{
+  border-color:transparent;
+  background-color: transparent;
+  border:none;
+}
+.templatePicker{
+  padding-top:25px;
+}
+.templatePicker .grid .dojoxGridRowOver .dojoxGridCell{
+  background-color:transparent;
+}
+.templatePicker .grid .groupLabel{
+  text-align:left;
+}
+.calcite .dijitToolbar{
+  position: absolute;
+  top:0;
+  right:0;
+  left:0;
+  background-color: rgba(0, 0, 0, 0);
+  border: rgba(0, 0, 0, 0);
+  width:100%;
+  padding:0;
+  border-bottom: solid 1px #ccc;
 }

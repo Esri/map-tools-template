@@ -34,6 +34,7 @@ define({
   // hosted version of the application can apply custom styles
   // not used in the download version.
   "customstyle": null,
+  "customLayout": "default", // default, fullmap
   "title": null, //enter a title if no title is specified web map title is used.
   "showtitle": true,
   "description": null, //Description if not entered web map desc is used.
@@ -44,14 +45,13 @@ define({
   "iconcolortheme": "#fff",
   "showdescription": true,
   "showpanel": true,
-  "panelwidth": 228,
+  "panelwidth": 260,
   "legend": true,
   "activepanel": "legend",
   //If your applcation needs to edit feature layer fields set this value to true. When false the map will
   //be dreated with layers that are not set to editable which allows the FeatureLayer to load features optimally.
-  "editor": false,
-  "editable": false,
-  "editortoolbar": false,
+  "editor": false, // editor widget 
+  "editable": false, // Edit table 
   "search": true,
   "bookmarks": false,
   "measure": false,
@@ -85,7 +85,8 @@ define({
   "home": true,
   "locate": false,
   "scale": false,
-  "share": false,
+  "share": true,
+  "share_embed": false,
   "level": null,
   "center": null,
   //Setup the app to support a custom url parameter. Use this if you want users

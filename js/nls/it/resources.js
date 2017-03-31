@@ -31,10 +31,10 @@ define({
     "printTool": "Stampa",
     "printLegend": "Aggiungi legenda all'output",
     "printLayouts": {
-      "label1": "Orizzontale",
-      "label2": "Verticale",
-      "label3": "Orizzontale",
-      "label4": "Verticale"
+      "label1": "Paesaggio",
+      "label2": "Ritratto",
+      "label3": "Paesaggio",
+      "label4": "Ritratto"
     },
     "printTitle": "Titolo",
     "printTitlePrompt": "Aggiungi titolo personalizzato"

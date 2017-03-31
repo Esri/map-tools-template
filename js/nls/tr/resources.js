@@ -31,9 +31,9 @@ define({
     "printTool": "Yazdır",
     "printLegend": "Çıktıya gösterim ekle",
     "printLayouts": {
-      "label1": "Yatay",
+      "label1": "Peyzaj",
       "label2": "Dikey",
-      "label3": "Yatay",
+      "label3": "Peyzaj",
       "label4": "Dikey"
     },
     "printTitle": "Başlık",

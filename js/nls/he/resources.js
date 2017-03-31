@@ -31,9 +31,9 @@ define({
     "printTool": "הדפס",
     "printLegend": "הוסף מקרא לפלט",
     "printLayouts": {
-      "label1": "לרוחב",
+      "label1": "נוף",
       "label2": "לאורך",
-      "label3": "לרוחב",
+      "label3": "נוף",
       "label4": "לאורך"
     },
     "printTitle": "כותרת",

@@ -16,27 +16,27 @@
  */
 define({
   "map": {
-    "error": "Karte kann nicht erstellt werden"
+    "error": "Tidak dapat membuat peta"
   },
   "tools": {
-    "bookmarkTool": "Lesezeichen",
-    "basemapTool": "Grundkarten",
-    "legendTool": "Legende",
-    "detailsTool": "Details",
-    "measureTool": "Messen",
-    "shareTool": "Freigeben",
-    "layerTool": "Layer",
-    "tableTool": "Tabelle",
-    "editTool": "Bearbeiten",
-    "printTool": "Drucken",
-    "printLegend": "Legende zu Ausgabe hinzufügen",
+    "bookmarkTool": "Marka buku",
+    "basemapTool": "Peta Dasar",
+    "legendTool": "Legenda",
+    "detailsTool": "Detail",
+    "measureTool": "Ukur",
+    "shareTool": "Bagikan",
+    "layerTool": "Lapisan",
+    "tableTool": "Tabel",
+    "editTool": "Edit",
+    "printTool": "Cetak",
+    "printLegend": "Tambah legenda ke output",
     "printLayouts": {
-      "label1": "Landschaft",
-      "label2": "Hochformat",
-      "label3": "Landschaft",
-      "label4": "Hochformat"
+      "label1": "Lanskap",
+      "label2": "Potret",
+      "label3": "Lanskap",
+      "label4": "Potret"
     },
-    "printTitle": "Titel",
-    "printTitlePrompt": "Benutzerdefinierten Titel hinzufügen"
+    "printTitle": "Judul",
+    "printTitlePrompt": "Tambah judul kustom"
   }
 });

@@ -31,9 +31,9 @@ define({
     "printTool": "Skriv ut",
     "printLegend": "Legg til kartforklaring i resultatet",
     "printLayouts": {
-      "label1": "Liggende",
+      "label1": "Landskap",
       "label2": "Stående",
-      "label3": "Liggende",
+      "label3": "Landskap",
       "label4": "Stående"
     },
     "printTitle": "Tittel",

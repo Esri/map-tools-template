@@ -31,9 +31,9 @@ define({
     "printTool": "Tulosta",
     "printLegend": "Lisää selite tulokseen",
     "printLayouts": {
-      "label1": "Vaaka",
+      "label1": "Maisema",
       "label2": "Pysty",
-      "label3": "Vaaka",
+      "label3": "Maisema",
       "label4": "Pysty"
     },
     "printTitle": "Otsikko",

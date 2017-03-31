@@ -31,9 +31,9 @@ define({
     "printTool": "Štampaj",
     "printLegend": "Dodaj legendu u rezultate",
     "printLayouts": {
-      "label1": "Položeno",
+      "label1": "Pejzaž",
       "label2": "Uspravno",
-      "label3": "Položeno",
+      "label3": "Pejzaž",
       "label4": "Uspravno"
     },
     "printTitle": "Naslov",

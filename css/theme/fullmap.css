@@ -1,0 +1,23 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+}
+#bc{
+  margin:0;
+  width:100%;
+  height:100%;
+}
+.title-header h1{
+  padding-left:.5em;
+  font-size: 1.5em;
+}
+.tool-label{
+  display: block;
+  padding:0;
+}
+.container_box{
+
+}

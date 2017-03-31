@@ -16,27 +16,27 @@
  */
 define({
   "map": {
-    "error": "Karte kann nicht erstellt werden"
+    "error": "Nije moguće stvoriti kartu"
   },
   "tools": {
-    "bookmarkTool": "Lesezeichen",
-    "basemapTool": "Grundkarten",
-    "legendTool": "Legende",
-    "detailsTool": "Details",
-    "measureTool": "Messen",
-    "shareTool": "Freigeben",
-    "layerTool": "Layer",
-    "tableTool": "Tabelle",
-    "editTool": "Bearbeiten",
-    "printTool": "Drucken",
-    "printLegend": "Legende zu Ausgabe hinzufügen",
+    "bookmarkTool": "Knjižne oznake",
+    "basemapTool": "Kartografske podloge",
+    "legendTool": "Legenda",
+    "detailsTool": "Pojedinosti",
+    "measureTool": "Mjera",
+    "shareTool": "Podijeli",
+    "layerTool": "Slojevi",
+    "tableTool": "Tablica",
+    "editTool": "Uredi",
+    "printTool": "Ispis",
+    "printLegend": "Dodaj legendu u izlaz",
     "printLayouts": {
-      "label1": "Landschaft",
-      "label2": "Hochformat",
-      "label3": "Landschaft",
-      "label4": "Hochformat"
+      "label1": "Vodoravno",
+      "label2": "Okomito",
+      "label3": "Vodoravno",
+      "label4": "Okomito"
     },
-    "printTitle": "Titel",
-    "printTitlePrompt": "Benutzerdefinierten Titel hinzufügen"
+    "printTitle": "Naziv",
+    "printTitlePrompt": "Dodaj prilagođeni naslov"
   }
 });

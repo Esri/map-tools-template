@@ -1,30 +1,36 @@
 define({
-    root: ({
-        widgets: {
-            ShareDialog: {
-                title: "Share",
-                heading: "Share this map",
-                url: "Map Link",
-                embed: "Embed Map",
-                extent: "Share current map extent",
-                size: "Size (width/height):",
-                facebookTooltip: "Facebook",
-                twitterTooltip: "Twitter",
-                gplusTooltip: "Google Plus",
-                emailTooltip: "Email"
-            }
-        }
-    }),
+  root: ({
+    widgets: {
+      ShareDialog: {
+        title: "Share",
+        heading: "Share this map",
+        url: "Map Link",
+        embed: "Embed Map",
+        extent: "Share current map view",
+        size: "Size (width/height):",
+        facebookTooltip: "Facebook",
+        twitterTooltip: "Twitter",
+        gplusTooltip: "Google Plus",
+        emailTooltip: "Email",
+        copy: "Copy short url to clipboard",
+        copied: "Copied"
+      }
+    }
+  }),
   "ar": 1,
+  "bs": 1,
   "cs": 1,
   "da": 1,
   "de": 1,
+  "el": 1,
   "es": 1,
   "et": 1,
   "fi": 1,
   "fr": 1,
   "he": 1,
-  "hr": 1, 
+  "hi": 1,
+  "hr": 1,
+  "id": 1,
   "it": 1,
   "ja": 1,
   "ko": 1,
@@ -37,11 +43,10 @@ define({
   "pt-pt": 1,
   "ro": 1,
   "ru": 1,
-  "su": 1,
   "sr": 1,
   "sv": 1,
-  "tr": 1,
   "th": 1,
+  "tr": 1,
   "vi": 1,
   "zh-cn": 1,
   "zh-hk": 1,

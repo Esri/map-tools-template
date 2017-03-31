@@ -31,7 +31,7 @@ define({
     "printTool": "印刷",
     "printLegend": "凡例を出力に追加",
     "printLayouts": {
-      "label1": "横",
+      "label1": "地形",
       "label2": "縦",
       "label3": "横",
       "label4": "縦"

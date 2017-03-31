@@ -31,9 +31,9 @@ define({
     "printTool": "列印",
     "printLegend": "在輸出新增圖例",
     "printLayouts": {
-      "label1": "橫向",
+      "label1": "景觀",
       "label2": "縱向",
-      "label3": "橫向",
+      "label3": "景觀",
       "label4": "縱向"
     },
     "printTitle": "標題",

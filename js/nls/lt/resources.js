@@ -31,10 +31,10 @@ define({
     "printTool": "Spausdinti",
     "printLegend": "Įtraukti legendą į išvestį",
     "printLayouts": {
-      "label1": "Gulsčias",
-      "label2": "Stačias",
-      "label3": "Gulsčias",
-      "label4": "Stačias"
+      "label1": "Horizontalus",
+      "label2": "Vertikalus",
+      "label3": "Horizontalus",
+      "label4": "Vertikalus"
     },
     "printTitle": "Pavadinimas",
     "printTitlePrompt": "Pridėti adaptuotą pavadinimą"

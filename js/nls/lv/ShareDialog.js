@@ -1,16 +1,18 @@
 define({
   "widgets": {
     "ShareDialog": {
-      "title": "Kopīgot",
-      "heading": "Koplietot šo karti",
+      "title": "Kopīgošana",
+      "heading": "Kopīgot šo karti",
       "url": "Kartes saite",
       "embed": "Iedarināt karti",
-      "extent": "Koplietot pašreizējo kartes pārklājumu",
+      "extent": "Kopīgot pašreizējo kartes skatu",
       "size": "Izmēri (platums/augstums):",
       "facebookTooltip": "Facebook",
       "twitterTooltip": "Twitter",
       "gplusTooltip": "Google Plus",
-      "emailTooltip": "E-pasts"
+      "emailTooltip": "E-pasts",
+      "copy": "Kopēt īso url starpliktuvē",
+      "copied": "Nokopēts"
     }
   }
 });

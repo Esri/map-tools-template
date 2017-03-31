@@ -31,9 +31,9 @@ define({
     "printTool": "Drukuj",
     "printLegend": "Dodaj legendę do danych wynikowych",
     "printLayouts": {
-      "label1": "Poziomo",
+      "label1": "Krajobraz",
       "label2": "Pionowo",
-      "label3": "Poziomo",
+      "label3": "Krajobraz",
       "label4": "Pionowo"
     },
     "printTitle": "Tytuł",

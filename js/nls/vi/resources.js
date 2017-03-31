@@ -31,9 +31,9 @@ define({
     "printTool": "In",
     "printLegend": "Thêm chú giải vào kết quả đầu ra",
     "printLayouts": {
-      "label1": "Hướng ngang",
+      "label1": "Cảnh quan",
       "label2": "Hướng dọc",
-      "label3": "Hướng ngang",
+      "label3": "Cảnh quan",
       "label4": "Hướng dọc"
     },
     "printTitle": "Tiêu đề",
