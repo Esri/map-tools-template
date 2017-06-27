@@ -49,5 +49,5 @@ define({
     "sharedTheme", "sharedThemeItem", "sharinghost", "customLayout"
   ],
   // For esri hosted envoronments only. Will automatically create a sharingurl and proxyurl for the application.
-  esriEnvironment: true
+  esriEnvironment: false
 });

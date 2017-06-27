@@ -5,8 +5,6 @@
   <title></title>
   <meta charset="utf-8">
   <meta name="fragment" content="!">
-  <!-- Define the versions of IE that will be used to render the page. See Microsoft documentation for details. Optional. -->
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <!-- Responsive -->
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   <meta name="mobile-web-app-capable" content="yes">
@@ -14,8 +12,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <!-- End Responsive -->
   <!-- Use protocol relative urls that way if the browser is viewing the page via HTTPS the js/css file will be requested using the HTTPS protocol -->
-  <link rel="stylesheet" href="//js.arcgis.com/3.20/esri/themes/calcite/dijit/calcite.css">
-  <link rel="stylesheet" href="//js.arcgis.com/3.20/esri/css/esri.css">
+  <link rel="stylesheet" href="https://js.arcgis.com/3.21/esri/themes/calcite/dijit/calcite.css">
+  <link rel="stylesheet" href="https://js.arcgis.com/3.21/esri/css/esri.css">
 
   <!-- Load any application specific styles -->
   <link rel="stylesheet" href="css/main.css">
@@ -72,7 +70,7 @@
       dojoConfig.locale = RegExp.$1;
     }
   </script>
-  <script type="text/javascript" src="//js.arcgis.com/3.20/"></script>
+  <script type="text/javascript" src="https://js.arcgis.com/3.21/"></script>
   <script type="text/javascript">
     require([
       "dojo/parser",
@@ -87,23 +85,22 @@
       Template,
       Main
     ) {
-        parser.parse();
-        // create the template. This will take care of all the logic required for template applications
-        var myTemplate = new Template(templateConfig);
-        // create my main application. Start placing your logic in the main.js file.
-        var myApp = new Main();
-        // start template
-        myTemplate.startup().then(function (config) {
-          // The config object contains the following properties: helper services, (optionally)
-          // i18n, appid, webmap and any custom values defined by the application.
-          // In this example we have one called theme.
-          myApp.startup(config);
-        }, function (error) {
-          // something went wrong. Let's report it.
-          myApp.reportError(error);
-        });
+      parser.parse();
+      // create the template. This will take care of all the logic required for template applications
+      var myTemplate = new Template(templateConfig);
+      // create my main application. Start placing your logic in the main.js file.
+      var myApp = new Main();
+      // start template
+      myTemplate.startup().then(function (config) {
+        // The config object contains the following properties: helper services, (optionally)
+        // i18n, appid, webmap and any custom values defined by the application.
+        // In this example we have one called theme.
+        myApp.startup(config);
+      }, function (error) {
+        // something went wrong. Let's report it.
+        myApp.reportError(error);
       });
-
+    });
   </script>
 </body>
 

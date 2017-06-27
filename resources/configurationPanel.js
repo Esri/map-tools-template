@@ -1,14 +1,12 @@
 {
 	"configurationSettings": [{
-		"category": "<b>Map</b>",
+		"category": "<b>General</b>",
 		"fields": [{
 			"type": "appproxies"
 		}, {
 			"type": "webmap"
-		}]
-	}, {
-		"category": "General",
-		"fields": [{
+		},
+		{
 			"type": "conditional",
 			"condition": false,
 			"fieldName": "showtitle",
@@ -20,69 +18,19 @@
 				"type": "string",
 				"tooltip": "Defaults to web map title"
 			}, {
-				"type": "paragraph",
-				"value": "Enter a value to override the default title font size. Make sure to specify the font units. For example 20px would result in a title font size of 20 pixels. Em and pt are also valid units.  "
-			}, {
 				"type": "string",
-				"label": "Title font size",
-				"tooltip": "Specify title font size",
-				"fieldName": "titlefontsize",
-				"placeHolder": "20px"
+				"fieldName": "description",
+				"label": "Description",
+				"placeHolder": "Defaults to web map description.",
+				"tooltip": "custom description",
+				"stringFieldOption": "richtext"
 			}]
-		}, {
-			"type": "string",
-			"fieldName": "description",
-			"label": "Description",
-			"placeHolder": "Defaults to web map description.",
-			"tooltip": "custom description",
-			"stringFieldOption": "richtext"
-		}, {
-			"type": "conditional",
-			"condition": false,
-			"label": "Display Logo",
-			"items": [{
-				"type": "paragraph",
-				"value": "Specify a custom logo image and link. If you check Logo in header the logo image will display to the left of the map title. If you don't select this the logo will be displayed in the lower-right corner of the map."
-			}, {
-				"label": "Logo in header",
-				"fieldName": "logointitle",
-				"type": "boolean"
-			}, {
-				"label": "Map logo:",
-				"fieldName": "logoimage",
-				"type": "string",
-				"tooltip": "Defaults to esri logo",
-				"sharedThemeProperty": "logo.small"
-			}, {
-				"label": "Map Logo Link",
-				"fieldName": "logolink",
-				"type": "string",
-				"tooltip": "Url to navigate to when logo is clicked"
-			}]
-		}, {
-			"type": "paragraph",
-			"value": "The side panel for this template displays the Editor, Legend and Description if available. The default panel size is 228 (pixels) wide. If desired you can change this default size by entering a new value for the 'Side Panel Width'."
-		}, {
-			"type": "string",
-			"fieldName": "panelwidth",
-			"placeHolder": "228",
-			"label": "Side panel width",
-			"tooltip": "Defaults to 228 pixels"
 		}]
 	}, {
 		"category": "Theme",
 		"fields": [{
-			"type": "radio",
-			"fieldName": "customLayout",
-			"label": "Custom Layout",
-			"items": [{
-				"label": "<img style='vertical-align:middle' src='https://devext.arcgis.com/apps/MapTools/images/config-images/default.png'><span>Default</span>",
-				"value": "default",
-				"checked": true
-			}, {
-				"label": "<img style='vertical-align:middle'  src='http://devext.arcgis.com/apps/MapTools/images/config-images/fullmap.png'><span>Full Map View</span>",
-				"value": "fullmap"
-			}]
+			"type": "subcategory",
+			"label": "Colors"
 		}, {
 			"type": "paragraph",
 			"value": "Specify a color scheme for the application. The title color defines the text color used for the tool",
@@ -112,6 +60,44 @@
 			"label": "Title text color (this is only applied  when using the Full Map View layout",
 			"sharedThemeProperty": "header.text"
 		}, {
+			"type": "conditional",
+			"condition": false,
+			"label": "Display Logo",
+			"items": [{
+				"type": "paragraph",
+				"value": "Specify a custom logo image and link. If you check Logo in header the logo image will display to the left of the map title. If you don't select this the logo will be displayed in the lower-right corner of the map."
+			}, {
+				"label": "Logo in header",
+				"fieldName": "logointitle",
+				"type": "boolean"
+			}, {
+				"label": "Map logo:",
+				"fieldName": "logoimage",
+				"type": "string",
+				"tooltip": "Defaults to esri logo",
+				"sharedThemeProperty": "logo.small"
+			}, {
+				"label": "Map Logo Link",
+				"fieldName": "logolink",
+				"type": "string",
+				"tooltip": "Url to navigate to when logo is clicked"
+			}]
+		}, {
+			"type": "subcategory",
+			"label": "Custom Layout Options"
+		}, {
+			"type": "radio",
+			"fieldName": "customLayout",
+			"label": "Custom Layout",
+			"items": [{
+				"label": "Default",
+				"value": "default",
+				"checked": true
+			}, {
+				"label": "Full Map View",
+				"value": "fullmap"
+			}]
+		}, {
 			"type": "paragraph",
 			"value": "Use the Custom css option to paste css that overwrites rules in the app."
 		}, {
@@ -119,49 +105,79 @@
 			"fieldName": "customstyle",
 			"tooltip": "Custom css",
 			"label": "Custom css"
+		}, {
+			"type": "subcategory",
+			"label": "Additional Layout Options"
+		}, {
+			"type": "paragraph",
+			"value": "The side panel for this template displays the Editor, Legend and Description if available. The default panel size is 228 (pixels) wide. If desired you can change this default size by entering a new value for the 'Side Panel Width'."
+		}, {
+			"type": "string",
+			"fieldName": "panelwidth",
+			"placeHolder": "228",
+			"label": "Side panel width",
+			"tooltip": "Defaults to 228 pixels"
+		}, {
+			"type": "paragraph",
+			"value": "Enter a value to override the default title font size. Make sure to specify the font units. For example 20px would result in a title font size of 20 pixels. Em and pt are also valid units.  "
+		}, {
+			"type": "string",
+			"label": "Title font size",
+			"tooltip": "Specify title font size",
+			"fieldName": "titlefontsize",
+			"placeHolder": "20px"
 		}]
 	}, {
 		"category": "Options",
 		"fields": [{
 			"type": "boolean",
-			"fieldName": "basemaps",
-			"label": "Basemap Gallery"
-		}, {
-			"type": "boolean",
-			"fieldName": "editor",
-			"label": "Editor"
-		}, {
-			"type": "boolean",
-			"fieldName": "bookmarks",
-			"label": "Bookmarks"
-		}, {
-			"type": "boolean",
 			"fieldName": "home",
 			"label": "Home Button"
-		}, {
-			"type": "boolean",
-			"fieldName": "locate",
-			"label": "Find Location"
-		}, {
-			"type": "boolean",
-			"fieldName": "legend",
-			"label": "Legend"
-		}, {
-			"type": "boolean",
-			"fieldName": "measure",
-			"label": "Measure"
 		}, {
 			"type": "boolean",
 			"fieldName": "scale",
 			"label": "Scalebar"
 		}, {
 			"type": "boolean",
-			"fieldName": "share",
-			"label": "Social Sharing"
-		}, {
-			"type": "boolean",
 			"fieldName": "zoom",
 			"label": "Zoom Slider"
+		}, {
+			"type": "boolean",
+			"fieldName": "locate",
+			"label": "Find Location"
+		}, {
+			"type": "paragraph",
+			"value": "Add a Locate button to the map. Note that the Locate button is only available if site is using https"
+		}, {
+			"type": "subcategory",
+			"label": "Toolbar Options"
+		}, {
+			"type": "paragraph",
+			"value": "Select tools for the app toolbar. <br> <br> Note: if the web map doesn't support the enabled capability the tool will not appear. For example if the map doesn't have bookmarks then the bookmark tool won't appear on the toolbar even if it is checked."
+		}, {
+			"type": "boolean",
+			"fieldName": "editor",
+			"label": "Editor"
+		}, {
+			"type": "boolean",
+			"fieldName": "legend",
+			"label": "Legend"
+		}, {
+			"type": "boolean",
+			"fieldName": "basemaps",
+			"label": "Basemap Gallery"
+		}, {
+			"type": "boolean",
+			"fieldName": "bookmarks",
+			"label": "Bookmarks"
+		}, {
+			"type": "boolean",
+			"fieldName": "measure",
+			"label": "Measure"
+		}, {
+			"type": "boolean",
+			"fieldName": "share",
+			"label": "Social Sharing"
 		}, {
 			"type": "conditional",
 			"condition": false,
@@ -213,10 +229,7 @@
 					"geometryTypes": ["esriGeometryPoint", "esriGeometryLine", "esriGeometryPolyline", "esriGeometryPolygon"]
 				}
 			}]
-		}]
-	}, {
-		"category": "Print",
-		"fields": [{
+		}, {
 			"type": "conditional",
 			"condition": false,
 			"fieldName": "print",
@@ -246,6 +259,9 @@
 	}, {
 		"category": "Search",
 		"fields": [{
+			"type": "subcategory",
+			"label": "Search Settings"
+		}, {
 			"type": "paragraph",
 			"value": "Enable search to allow users to find a location or data in the map. Configure the search settings to refine the experience in your app by setting the default search resource, placeholder text, etc."
 		}, {
@@ -258,10 +274,10 @@
 				"fieldName": "searchConfig",
 				"label": "Configure search tool"
 			}]
-		}]
-	}, {
-		"category": "Custom URL Parameter",
-		"fields": [{
+		}, {
+			"type": "subcategory",
+			"label": "Custom URL Parameter"
+		}, {
 			"type": "paragraph",
 			"value": "Setup the app to support a custom url parameter. For example if your map contains a feature layer with parcel information and you'd like to be able to find parcels using a url parameter you can use this section to do so. Select a layer and search field then define the name of a custom param. Once you've defined these values you can append the custom search to your application url using the custom parameter name you define. For example, if I set the custom param value to parcels a custom url would look like this index.html?parcel=3045"
 		}, {
