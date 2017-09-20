@@ -5,6 +5,7 @@
   font-weight: normal;
   font-style: normal;
 }
+
 [class^="icon-"],
 [class*=" icon-"] {
   font-family: 'bv_template' !important;
@@ -16,122 +17,155 @@
   text-transform: none;
   line-height: 1;
   color: #fff;
-/* Better Font Rendering =========== */
+  /* Better Font Rendering =========== */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
 .icon-book:before {
   content: "\e60c";
 }
+
 .icon-basemap:before {
   content: "\61";
 }
+
 .icon-measure:before {
   content: "\e600";
 }
+
 .icon-share:before {
   content: "\e601";
 }
+
 .icon-file-text:before {
   content: "\e603";
 }
+
 .icon-link:before {
   content: "\e604";
 }
+
 .icon-twitter:before {
   content: "\e605";
 }
+
 .icon-facebook:before {
   content: "\e606";
 }
+
 .icon-google-plus:before {
   content: "\e607";
 }
+
 .icon-mail:before {
   content: "\e608";
 }
+
 .icon-table:before {
   content: "\e609";
 }
+
 .icon-edit:before {
   content: "\e60a";
 }
+
 .icon-close:before {
   content: "\e602";
 }
+
 .icon-magnify:before {
   content: "\e60b";
 }
+
 .icon-place:before {
   content: "\e61e";
 }
+
 .icon-zoomin:before {
   font-size: 20px;
   content: "\e621";
 }
+
 .icon-zoomout:before {
   font-size: 20px;
   content: "\e622";
 }
+
 .icon-home:before {
   content: "\e62f";
   font-size: 20px;
 }
+
 .icon-locate:before {
   content: "\e630";
 }
+
 .icon-next:before {
   content: "\e631";
 }
+
 .icon-previous:before {
   content: "\e632";
 }
+
 .icon-legend:before {
   content: "\e633";
 }
+
 .icon-layers:before {
   content: "\e635";
 }
+
 .icon-printer:before {
   content: "\e641";
 }
+
 html,
 body {
   font-family: Arial, Helvetica, sans-serif;
   background-repeat: repeat;
   background: #ebebeb;
 }
+
 g#mapDiv_graphics_layer path {
-    fill-opacity: 0;
+  fill-opacity: 0;
 }
+
 #bc {
   margin-right: auto;
   margin-left: auto;
   width: 98%;
   height: 98%;
 }
-#toolbarDiv{
-  height:45px;
-  margin:auto;
+
+#toolbarDiv {
+  height: 45px;
+  margin: auto;
 }
+
 .no-title .toolbar {
   -webkit-border-radius: 0;
   border-radius: 0;
 }
+
 .no-title #bc {
   margin: 0;
   width: 100%;
   height: 100%;
 }
+
 .no-title .title-header {
   margin: 0;
   height: 0;
 }
+
 .title-header {
   margin: 0;
   padding: 0;
   overflow: hidden;
 }
+
 .title-header h1 {
   white-space: nowrap;
   overflow: hidden;
@@ -140,22 +174,27 @@ g#mapDiv_graphics_layer path {
   font-size: 2em;
   font-weight: 400;
   margin: 0;
-  padding:2px;
+  padding: 2px;
 }
 
-#title-logo{
-    margin-left:5px;
-    display: block;
-    overflow:hidden;
-    float:left;
-    max-width:255px;
-    max-height: 40px;
-    line-height: 40px;
-
+#title-logo {
+  margin-left: 5px;
+  display: block;
+  overflow: hidden;
+  float: left;
+  max-width: 255px;
+  max-height: 40px;
+  line-height: 40px;
 }
-#title-logo img{
+
+#title-logo img {
   vertical-align: middle;
 }
+
+.hidden {
+  display: none;
+}
+
 .toolbar {
   width: 100%;
   background-repeat: repeat;
@@ -163,33 +202,41 @@ g#mapDiv_graphics_layer path {
   border: none;
   z-index: 40;
 }
+
 #toolbar-leading {
   width: auto;
-  float:left;
+  float: left;
   margin: auto;
-  overflow-y: hidden;
-  height:45px;
+  height: 45px;
   line-height: 45px;
 }
+
 #toolbar-trailing {
-  height:100%;
+  height: 100%;
   margin: auto;
 }
+
 .tools-menu {
   list-style: none;
   padding: 0;
   margin: 0;
+  float: right;
 }
+
 .tools-submenu {
   position: absolute;
   list-style: none;
   padding: 0;
   margin: 0;
 }
-.toolbar button{
-  height:100%;
+
+.toolbar button {
+  height: 100%;
   min-width: 44px;
+  padding-bottom: 0 !important;
+  max-height: 44px;
 }
+
 .toolbar button:active,
 .toolbar button:hover:enabled {
   -webkit-box-shadow: 0 0 1px #51cbee;
@@ -197,17 +244,16 @@ g#mapDiv_graphics_layer path {
   -webkit-border-radius: 0;
   border-radius: 0;
 }
-.toolbar button:focus {
-  outline: none;
-}
+
 .tool-selected {
-  height:100%;
-  background: rgba(0,0,0,0.2) !important;
-  -webkit-box-shadow: 1px 1px 1px rgba(51,51,51,0.6);
-  box-shadow: 1px 1px 1px rgba(51,51,51,0.6);
+  height: 100%;
+  background: rgba(0, 0, 0, 0.2) !important;
+  -webkit-box-shadow: 1px 1px 1px rgba(51, 51, 51, 0.6);
+  box-shadow: 1px 1px 1px rgba(51, 51, 51, 0.6);
   -webkit-border-radius: 0;
   border-radius: 0;
 }
+
 .toolbar button {
   display: inline-block;
   font-size: 1em;
@@ -217,20 +263,23 @@ g#mapDiv_graphics_layer path {
   border: none;
   overflow: hidden;
 }
+
 #toolbar-trailing button {
   display: inline-block;
-  float: right;
 }
+
 .tool-label {
   color: #fff;
   font-size: .9em;
   padding: 1px 2px;
 }
+
 @media screen and (max-width: 680px) {
   .tool-label {
     display: none !important;
   }
 }
+
 .toolbar button:disabled {
   cursor: default;
   color: #ccc;
@@ -243,27 +292,35 @@ g#mapDiv_graphics_layer path {
   -webkit-border-radius: 0 0 4px 4px;
   border-radius: 0 0 4px 4px;
 }
-#mapbc{
+
+#mapbc {
   width: 100%;
   height: 100%;
 }
-#featureTable_menuNode_label{
-  color:#333;
+
+#featureTable_menuNode_label {
+  color: #333;
 }
+
 .esriFeatureTable .esriFeatureTable_menu {
   display: none;
 }
+
 .esriFeatureTable .esriFeatureTable_closer {
   display: none;
 }
+
 .esriPopup .pointer.bottomLeft,
 .esriPopup .pointer.bottom,
 .esriPopup .pointer.bottomRight {
   background: #fff !important;
 }
-.esriPopup.light .titlePane, .dj_ie7 .esriPopup.light .titlePane .title{
-  height:32px;
+
+.esriPopup.light .titlePane,
+.dj_ie7 .esriPopup.light .titlePane .title {
+  height: 32px;
 }
+
 .sidepanel {
   width: 0;
   border: none;
@@ -273,29 +330,40 @@ g#mapDiv_graphics_layer path {
   border-radius: 0 0 0 4px;
   background-color: inherit;
 }
+
 .sidepanel_content {
-  padding:1em;
+  padding: 1em;
 }
+
 .sidepanel a {
   color: #369;
 }
+
 #mapDiv.has-sidepanel {
   -webkit-border-radius: 0 0 4px 0;
   border-radius: 0 0 4px 0;
 }
+
 #mapDiv {
   width: 100%;
   height: 100%;
   border-radius: 0 0 4px 4px;
 }
+
+
 /*overwrite calcite styles*/
+
 .calcite .dijitContentPane {
   padding: 0 !important;
 }
+
 .esriSimpleSlider span {
   display: none;
 }
-.esriSimpleSliderDecrementButton:hover, .esriSimpleSliderIncrementButton:hover, .HomeButton .home:hover {
+
+.esriSimpleSliderDecrementButton:hover,
+.esriSimpleSliderIncrementButton:hover,
+.HomeButton .home:hover {
   border-radius: 0;
   background-color: transparent;
   background-color: rgba(0, 0, 0, 0.3);
@@ -305,30 +373,31 @@ g#mapDiv_graphics_layer path {
 .esriSimpleSliderVertical .esriSimpleSliderIncrementButton {
   border: none !important;
 }
+
 .HomeButton .home {
-    width: 30px;
-    height: 25px;
-  /*display:none;*/
-    background-color: transparent;
-    background-image: none;
-    vertical-align: middle;
-    text-align: center;
-    cursor: pointer;
-    padding: 0px !important;
+  width: 30px;
+  height: 25px;
+  background-color: transparent;
+  background-image: none;
+  vertical-align: middle;
+  text-align: center;
+  cursor: pointer;
+  padding: 0px !important;
 }
 
 .esriSimpleSlider {
-    text-align: center;
-    color: #ffffff;
-    background-color: transparent;
-    background-color: rgba(255, 255, 255, 0.8);
-    cursor: pointer;
-    border:none;
-    border-radius: 0;
+  text-align: center;
+  color: #ffffff;
+  background-color: transparent;
+  background-color: rgba(255, 255, 255, 0.8);
+  cursor: pointer;
+  border: none;
+  border-radius: 0;
 }
 
-.esriSimpleSliderVertical .esriSimpleSliderIncrementButton, .esriSimpleSliderVertical .esriSimpleSliderDecrementButton {
-    border-radius: 0;
+.esriSimpleSliderVertical .esriSimpleSliderIncrementButton,
+.esriSimpleSliderVertical .esriSimpleSliderDecrementButton {
+  border-radius: 0;
 }
 
 #search.arcgisSearch {
@@ -337,54 +406,73 @@ g#mapDiv_graphics_layer path {
   left: 20px;
   z-index: 40;
 }
-.arcgisSearch .searchBtn{
-  border:none;
+
+.arcgisSearch .searchBtn {
+  border: none;
 }
+
 .arcgisSearch .searchCollapsed .searchSubmit {
   border-radius: 0;
   padding: 6px;
 }
+
 .arcgisSearch .searchIcon {
   font-size: 22px;
 }
+
 .LocateButton {
   position: absolute;
   top: 120px;
   left: 20px;
   z-index: 50px;
 }
+
+
 /*Position the zoom, locate and search differently if parts are missing*/
+
 .no-zoom .LocateButton {
   top: 20px;
 }
+
 .no-home .LocateButton {
   top: 90px;
 }
+
 .no-home.no-locate #search.arcgisSearch {
   top: 90px;
 }
+
 .no-zoom .LocateButton {
   top: 20px;
 }
+
 .no-home #search.arcgisSearch {
   top: 130px;
 }
+
 .no-home.no-zoom.no-locate #search.arcgisSearch {
   top: 20px;
 }
+
 .no-zoom #search.arcgisSearch {
   top: 60px;
 }
+
 .no-locate.no-zoom #search.arcgisSearch {
   top: 60px;
 }
+
 .no-locate.no-title.no-zoom #search.arcgisSearch {
   top: 20px;
 }
+
 .no-locate #search.arcgisSearch {
   top: 120px;
 }
+
+
 /*End map tools positioning section*/
+
 .LocateButton .zoomLocateButton {
   font-size: 22px;
   line-height: 28px;
@@ -397,13 +485,17 @@ g#mapDiv_graphics_layer path {
   background-color: transparent;
   border: 1px solid #57585a;
 }
+
+
 /*Measure Window*/
+
 .tool_container {
   position: absolute;
   top: 0;
   /*right:300px;*/
   z-index: 100;
 }
+
 #measureDiv {
   padding: 5px;
   height: 200px;
@@ -411,19 +503,21 @@ g#mapDiv_graphics_layer path {
   overflow-y: scroll;
 }
 
-#printDiv{
-  padding:5px;
-  height:110px;
-  width:200px;
+#printDiv {
+  padding: 5px;
+  height: 110px;
+  width: 200px;
 }
-.esriPrint{
+
+.esriPrint {
   position: absolute;
-  bottom:0;
+  bottom: 0;
   right: 0;
-  padding:5px;
-  color:#fff;
+  padding: 5px;
+  color: #fff;
 }
-.printTitle{
+
+.printTitle {
   width: 100%;
   font-size: 12px;
   border-width: 1px;
@@ -431,48 +525,62 @@ g#mapDiv_graphics_layer path {
   border-style: solid;
   padding: 5px;
   margin-bottom: 12px;
-  display:block;
+  display: block;
 }
-.esriPrintout{
-  font-size:20px;
+
+.esriPrintout {
+  font-size: 20px;
 }
+
 .esriPrintout a {
   color: #5daddd;
 }
-.loadPrint{
-    padding:0 0.3em;
-    text-align: center;
-    vertical-align: middle;
-    line-height:32px;
-    -webkit-animation-name: rotate;
-    -webkit-animation-duration: 1s;
-    -webkit-animation-iteration-count: infinite;
-    -webkit-animation-timing-function: linear;
-    -moz-animation-name: rotate;
-    -moz-animation-duration: 1s;
-    -moz-animation-iteration-count: infinite;
-    -moz-animation-timing-function: linear;
-    animation-name: rotate;
-    animation-duration: 1s;
-    animation-iteration-count: infinite;
-    animation-timing-function: linear;
+
+.loadPrint {
+  padding: 0 0.3em;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 32px;
+  -webkit-animation-name: rotate;
+  -webkit-animation-duration: 1s;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-timing-function: linear;
+  -moz-animation-name: rotate;
+  -moz-animation-duration: 1s;
+  -moz-animation-iteration-count: infinite;
+  -moz-animation-timing-function: linear;
+  animation-name: rotate;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
 }
+
 @-webkit-keyframes rotate {
-    from {-webkit-transform: rotate(0deg);}
-    to {-webkit-transform: rotate(360deg);}
+  from {
+    -webkit-transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(360deg);
+  }
 }
 
 @-moz-keyframes rotate {
-    from {-moz-transform: rotate(0deg);}
-    to {-moz-transform: rotate(360deg);}
+  from {
+    -moz-transform: rotate(0deg);
+  }
+  to {
+    -moz-transform: rotate(360deg);
+  }
 }
 
 @keyframes rotate {
-    from {transform: rotate(0deg);}
-    to {transform: rotate(360deg);}
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
-
-
 
 #shareDiv {
   padding: 5px;
@@ -480,124 +588,145 @@ g#mapDiv_graphics_layer path {
   width: auto;
   overflow-y: auto;
 }
-.clippy{
-  width:13px;
-  height:13px;
-  color:#333;
-}
-.share-btn{
-  position: relative;
-   /* display: inline-block;*/
-    padding: 6px 12px;
-    font-size: 13px;
-    font-weight: bold;
-    line-height: 20px;
-    color: #333;
-    white-space: nowrap;
-    cursor: pointer;
-    background-color: #eee;
-    background-image: linear-gradient(#fcfcfc,#eee);
-    border: 1px solid #d5d5d5;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    -webkit-appearance: none;
-    float:right;
+
+.clippy {
+  width: 13px;
+  height: 13px;
+  color: #333;
 }
 
- .icon-container {
-    margin: 10px 0 10px;
-    display: none;
+.share-btn {
+  position: relative;
+  /* display: inline-block;*/
+  padding: 6px 12px;
+  font-size: 13px;
+  font-weight: bold;
+  line-height: 20px;
+  color: #333;
+  white-space: nowrap;
+  cursor: pointer;
+  background-color: #eee;
+  background-image: linear-gradient(#fcfcfc, #eee);
+  border: 1px solid #d5d5d5;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-appearance: none;
+  float: right;
 }
+
+.icon-container {
+  margin: 10px 0 10px;
+  display: none;
+}
+
 @media only screen and (min-width: 720px) {
-     .icon-container {
-        display: block;
-    }
-}
- .map-size-label {
-    float: left;
-    font-size: 15px;
-    margin: 0 5px 0 0;
-}
-.esriRTL .map-size-label {
-    float: right;
-    margin: 0 0 0 5px;
-}
- .share-dialog-icon {
-    background-color: transparent;
-    border: none;
-    font-size: 24px;
-    line-height: 24px;
-    float: left;
-    color: rgba(0, 0, 0, 0.3) !Important;
-    cursor: pointer;
+  .icon-container {
     display: block;
+  }
 }
+
+.map-size-label {
+  float: left;
+  font-size: 15px;
+  margin: 0 5px 0 0;
+}
+
+.esriRTL .map-size-label {
+  float: right;
+  margin: 0 0 0 5px;
+}
+
+.share-dialog-icon {
+  background-color: transparent;
+  border: none;
+  font-size: 24px;
+  line-height: 24px;
+  float: left;
+  color: rgba(0, 0, 0, 0.3) !Important;
+  cursor: pointer;
+  display: block;
+}
+
 .share-dialog-icon:visited {
-    color: rgba(0, 0, 0, 0.5);
+  color: rgba(0, 0, 0, 0.5);
 }
+
 .esriRTL .share-dialog-icon {
-    float: right;
-    margin: 0 0 0 10px;
+  float: right;
+  margin: 0 0 0 10px;
 }
- .share-dialog-icon:hover {
-    color: rgba(0, 0, 0, 0.8);
+
+.share-dialog-icon:hover {
+  color: rgba(0, 0, 0, 0.8);
 }
+
 .share-map-url {
-    width: 50%;
-    min-width: 80%;
-    max-width: 80%;
-    height: 34px;
-    padding:7px 8px;
-    font-size: 14px;
-    color: #777;
-    border: 1px solid #dcdcdc;
-    /*margin: 0 0 10px;*/
-    overflow:hidden;
+  width: 50%;
+  min-width: 80%;
+  max-width: 80%;
+  height: 34px;
+  padding: 7px 8px;
+  font-size: 14px;
+  color: #777;
+  border: 1px solid #dcdcdc;
+  /*margin: 0 0 10px;*/
+  overflow: hidden;
 }
- .map-size-container {
-    margin: 0;
-    padding: 0 0 20px;
+
+.map-size-container {
+  margin: 0;
+  padding: 0 0 20px;
 }
- .embed-map-size-clear,
+
+.embed-map-size-clear,
 .icon-clear {
-    clear: both;
+  clear: both;
 }
- .embed-map-size-dropdown {
-    float: left;
+
+.embed-map-size-dropdown {
+  float: left;
 }
-.esriRTL  .embed-map-size-dropdown {
-    float: right;
+
+.esriRTL .embed-map-size-dropdown {
+  float: right;
 }
- .share-dialog-subheader {
-    font-size: 17px;
-    display: none;
+
+.share-dialog-subheader {
+  font-size: 17px;
+  display: none;
 }
+
 @media only screen and (min-width: 720px) {
-    .share-dialog-subheader {
-        display: block;
-    }
+  .share-dialog-subheader {
+    display: block;
+  }
 }
- .share-dialog-textarea {
-    width: auto;
-    max-width: 90%;
-    width: 80%;
-    height: 50px;
-    font-size: 14px;
-    color: #777;
-    border: 1px solid #dcdcdc;
-    margin: 0 0 10px;
+
+.share-dialog-textarea {
+  width: auto;
+  max-width: 90%;
+  width: 80%;
+  height: 50px;
+  font-size: 14px;
+  color: #777;
+  border: 1px solid #dcdcdc;
+  margin: 0 0 10px;
 }
+
 .share-dialog-extent {
-    height: 30px;
-    line-height: 30px;
+  height: 30px;
+  line-height: 30px;
 }
+
 input[type=checkbox] {
-    font-size: 1em;
+  font-size: 1em;
 }
+
 
 /*Basemap Gallery*/
+
 .closemenu {
   position: absolute;
   cursor: pointer;
@@ -606,12 +735,14 @@ input[type=checkbox] {
   font-weight: 400;
   font-size: 1.2em;
 }
+
 #galleryDiv {
-  margin:0 auto;
-  max-width:240px;
+  margin: 0 auto;
+  max-width: 140px;
   height: 285px;
   overflow-y: scroll;
 }
+
 .container_box {
   -webkit-border-radius: 0 0 4px 4px;
   border-radius: 0 0 4px 4px;
@@ -619,55 +750,73 @@ input[type=checkbox] {
   background: #fff;
   border: 1px solid #ccc;
   z-index: 60;
-  margin-right: 0.5em;
 }
+
 .esriBookmarks {
   border: none;
 }
-.esriBasemapGalleryLabelContainer{
-  font-size:10px;
+
+#bookmark_container {
+  max-height: 60%;
+  overflow: auto;
 }
-.esriBasemapGallerySelectedNode .esriBasemapGalleryThumbnail{
+
+.esriBasemapGalleryLabelContainer {
+  font-size: 10px;
+}
+
+.esriBasemapGallerySelectedNode .esriBasemapGalleryThumbnail {
   border-width: 1px;
-  margin:1px;
+  margin: 1px;
 }
+
 @media screen and (max-width: 720px) {
   #galleryDiv {
     width: 122px;
     height: 265px;
   }
 }
-.hide{
+
+.hide {
   display: none;
 }
+
 #layerDiv {
   max-height: 300px;
   overflow: hidden;
 }
+
 .esriLayer {
   background-color: #fff;
 }
-.esriLayerList{
-  background-color:#fff;
+
+.esriLayerList {
+  background-color: #fff;
 }
+
 .esriLayerList .esriTitle {
   background-color: #fff;
   border-bottom: none;
 }
-.esriLayerList .esriTitleContainer{
- border-color:#eee;
+
+.esriLayerList .esriTitleContainer {
+  border-color: #eee;
 }
-.esriLayerList .esriList{
-    border-top:none;
+
+.esriLayerList .esriList {
+  border-top: none;
 }
+
 .esriLayerList .esriList ul {
   background-color: #fff;
 }
-.esriLayerList .esriContainer{
+
+.esriLayerList .esriContainer {
   background-color: #fff;
-  border-top:none;
-  border-bottom:none;
+  border-top: none;
+  border-bottom: none;
 }
+
 .esriLayerList {
   position: relative;
   width: 280px;
@@ -676,32 +825,116 @@ input[type=checkbox] {
   border-radius: 4px;
   overflow: auto;
 }
-.esriLayerList .esriToggleButton{
-  margin-right:8px;
+
+.esriLayerList .esriToggleButton {
+  margin-right: 8px;
 }
 
-.templatePicker, .templatePicker .grid .dojoxGridRow, .templatePicker .dojoxGridScrollbox, .templatePicker .dojoxGrid, .templatePicker .grid .dojoxGridCell{
-  border-color:transparent;
+.templatePicker,
+.templatePicker .grid .dojoxGridRow,
+.templatePicker .dojoxGridScrollbox,
+.templatePicker .dojoxGrid,
+.templatePicker .grid .dojoxGridCell {
+  border-color: transparent;
   background-color: transparent;
-  border:none;
+  border: none;
 }
-.templatePicker{
-  padding-top:25px;
+
+.templatePicker {
+  padding-top: 25px;
 }
-.templatePicker .grid .dojoxGridRowOver .dojoxGridCell{
-  background-color:transparent;
+
+.templatePicker .grid .dojoxGridRowOver .dojoxGridCell {
+  background-color: transparent;
 }
-.templatePicker .grid .groupLabel{
-  text-align:left;
+
+.templatePicker .grid .groupLabel {
+  text-align: left;
 }
-.calcite .dijitToolbar{
+
+.calcite .dijitToolbar {
   position: absolute;
-  top:0;
-  right:0;
-  left:0;
+  top: 0;
+  right: 0;
+  left: 0;
   background-color: rgba(0, 0, 0, 0);
   border: rgba(0, 0, 0, 0);
-  width:100%;
-  padding:0;
+  width: 100%;
+  padding: 0;
   border-bottom: solid 1px #ccc;
+}
+
+
+/*Styles for the modal dialog (splash screen)*/
+
+#modal {
+  z-index: 2000;
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  -moz-transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+#modalContent {
+  overflow-y: auto;
+  max-height: 300px;
+  min-width: 200px;
+  min-height: 100px;
+}
+
+#modalContent img {
+  max-width: 100%;
+  max-height: 40%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#modal.hide {
+  top: -50%;
+  visibility: hidden;
+  opacity: 0;
+}
+
+#modal .modal-header {
+  border-bottom: 1px solid #ccc;
+}
+
+#modal h2 {
+  margin: 0;
+  padding-right: 8px;
+  padding-bottom: 5px;
+  margin-right: 5px;
+}
+
+#modal .copy {
+  text-align: center;
+  color: #333;
+  background-color: #fff;
+}
+
+#modal .copy,
+#modal .modal-header {
+  padding: 10px;
+}
+
+.modal-content {
+  position: relative;
+  z-index: 20;
+}
+
+#closeOverlay {
+  line-height: normal;
+  padding: .5em 1em;
+  font-size: 1em;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  height: auto;
+  width: auto;
+  position: relative;
+  margin: .5em auto;
 }

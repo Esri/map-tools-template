@@ -73,6 +73,7 @@ define([
     extentHandler: null,
     table: null,
     legend: null,
+    tools: null,
     //tableSelectionHandler: null,
     timeFormats: ["shortDateShortTime", "shortDateLEShortTime", "shortDateShortTime24", "shortDateLEShortTime24", "shortDateLongTime", "shortDateLELongTime", "shortDateLongTime24", "shortDateLELongTime24"],
     startup: function (config) {
@@ -110,11 +111,14 @@ define([
           //default layout let's use header bg color for title instead. 
           this.config.titlecolor = this.config.theme;
         }
+
         var customTheme = document.createElement("link");
         customTheme.setAttribute("rel", "stylesheet");
         customTheme.setAttribute("type", "text/css");
         customTheme.setAttribute("href", "css/theme/" + this.config.customLayout + ".css");
         document.head.appendChild(customTheme);
+
+
 
 
         // Create and add custom style sheet
@@ -142,7 +146,10 @@ define([
           this._createWebMap(itemInfo, urlParams);
           //update app theme
           query(".bg").style("backgroundColor", this.config.theme.toString());
+          query(".fc").style("color", this.config.color.toString());
           query("#titleDiv").style("color", this.config.titlecolor.toString());
+
+
         }), lang.hitch(this, function (error) {
           this.reportError(error);
         }));
@@ -152,6 +159,8 @@ define([
       }
     },
     loadMapWidgets: function () { /*Add all the widgets that live on the map*/
+      this._showSplashScreen();
+
       require(["application/sniff!scale?esri/dijit/Scalebar"], lang.hitch(this, function (Scalebar) {
         if (!Scalebar) {
           return;
@@ -420,7 +429,8 @@ define([
         this.tableHandler.pause();
 
         this.table.startup();
-
+        domConstruct.place(btn, "tableBtnDiv");
+        domClass.remove("tableBtnDiv", "hidden");
         tableDef.resolve(btn);
         return tableDef.promise;
       }));
@@ -553,8 +563,6 @@ define([
               plate.layoutOptions = layoutOptions;
               return plate;
             }));
-
-
             print = new Print({
               map: this.map,
               templates: templates,
@@ -569,13 +577,8 @@ define([
                 }));
               }
             }));
-
             domConstruct.place(print.printDomNode, dom.byId("printDiv"), "first");
-
-
             print.startup();
-
-
           }));
         } else { //use the default layouts  or org layouts
 
@@ -638,7 +641,8 @@ define([
           print.startup();
 
         }
-
+        domClass.remove("printBtnDiv", "hidden");
+        domConstruct.place(btn, "printBtnDiv");
         printDef.resolve(btn);
         return printDef.promise;
       }));
@@ -647,8 +651,6 @@ define([
           measureDef.resolve(null);
           return;
         }
-
-
         var btn = this._createToolbarButton("measure_toggle", "icon-measure", this.config.i18n.tools.measureTool);
 
         on(btn, "click", lang.hitch(this, function () {
@@ -696,6 +698,8 @@ define([
             this.map.setInfoWindowOnClick(true);
           }
         }));
+        domClass.remove("measureBtnDiv", "hidden");
+        domConstruct.place(btn, "measureBtnDiv");
         measureDef.resolve(btn);
         return measureDef.promise;
 
@@ -725,6 +729,8 @@ define([
 
 
         gallery.startup();
+        domClass.remove("basemapBtnDiv", "hidden");
+        domConstruct.place(btn, "basemapBtnDiv");
         basemapDef.resolve(btn);
         return basemapDef.promise;
 
@@ -749,6 +755,8 @@ define([
           bookmarks: webmapBookmarks
         }, domConstruct.create("div", {}, "bookmarkDiv"));
 
+        domClass.remove("bookmarkBtnDiv", "hidden");
+        domConstruct.place(btn, "bookmarkBtnDiv");
         bookmarksDef.resolve(btn);
         return bookmarksDef.promise;
 
@@ -778,7 +786,6 @@ define([
           map: this.map,
           layers: layers,
           showSubLayers: this.config.includesublayers,
-          //subLayers: this.config.includesublayers,
           showLegend: this.config.includelayerlegend,
           showOpacitySlider: this.config.includelayeropacity
         }, domConstruct.create("div", {}, "layerDiv"));
@@ -788,6 +795,8 @@ define([
             this.legend.refresh();
           }));
         }
+        domClass.remove("layerListBtnDiv", "hidden");
+        domConstruct.place(btn, "layerListBtnDiv");
         layerDef.resolve(btn);
         return layerDef.promise;
       }));
@@ -836,7 +845,8 @@ define([
             }
           }
         }));
-
+        domClass.remove("shareBtnDiv", "hidden");
+        domConstruct.place(btn, "shareBtnDiv");
         shareDef.resolve(btn);
         return shareDef.promise;
       }));
@@ -844,12 +854,26 @@ define([
       //Wait until all the tools have been created then position on the toolbar
       //otherwise we'd get the tools placed in a random order
       all(toolDeferreds).then(lang.hitch(this, function (results) {
-        array.forEach(results, lang.hitch(this, function (node) {
-          if (node) {
-            domConstruct.place(node, "toolbar-menu");
-          }
-        }));
+        /*   array.forEach(results, lang.hitch(this, function (node, i) {
+             if (node) {
+               domConstruct.place(node, "toolbar-menu");
+             }
+           }));*/
         this._updateTheme();
+        /*    this.tools = [];
+            var leadingTools = query("#toolbar-leading > .click-button");
+            var trailingTools = query("#toolbar-menu > .click-button");
+            leadingTools.reverse();
+            trailingTools.reverse();
+            leadingTools.forEach(lang.hitch(this, function (node) {
+              this.tools.push(node);
+            }));
+            trailingTools.forEach(lang.hitch(this, function (node) {
+              this.tools.push(node);
+            }));
+            array.forEach(this.tools, function (tool, i) {
+              // tool.setAttribute("tabindex", i);
+            });*/
       }));
 
     },
@@ -886,6 +910,39 @@ define([
           node.innerHTML = "Unable to create map: " + error.message;
         }
       }
+    },
+    _showSplashScreen: function (toolbar) {
+      require(["application/sniff!splash?dojo/dom-attr", "application/sniff!splash?dijit/focus"], lang.hitch(this, function (domAttr, focusUtil) {
+        // Setup the modal overlay if enabled
+        if (this.config.splashModal) {
+          domClass.add(document.body, "noscroll");
+          domClass.remove("modal", "hide");
+          domAttr.set("modal", "aria-label", this.config.splashTitle || "Splash Screen");
+          // set focus to the dialog
+          var node = dom.byId("modal");
+          var closeOverlay = dom.byId("closeOverlay");
+          focusUtil.focus(node);
+
+          var title = this.config.splashTitle || "";
+          var content = this.config.splashContent || "";
+          dom.byId("modalTitle").innerHTML = title;
+          dom.byId("modalContent").innerHTML = content;
+
+          // TODO for next release add i18n support this.config.i18n.nav.close;
+          closeOverlay.value = this.config.splashButtonText || "Close";
+
+          // Close button handler for the overlay
+          on(closeOverlay, "click", lang.hitch(
+            this,
+            function () {
+
+              domClass.remove(document.body, "noscroll");
+              domClass.add("modal", "hide");
+            }));
+        }
+      }));
+
+
     },
     // create a map based on the input web map id
     _createWebMap: function (itemInfo, params) {
@@ -1018,7 +1075,7 @@ define([
           return;
         }
         var btn = this._createToolbarButton("legend_toggle", "icon-legend", this.config.i18n.tools.legendTool);
-        domConstruct.place(btn, "toolbar-leading");
+        domConstruct.place(btn, "legendDiv");
         on(btn, "click", lang.hitch(this, function () {
           this._navigateStack("legendPanel", "legend_toggle");
         }));
@@ -1039,7 +1096,7 @@ define([
       if (this.config.description && this.config.showdescription) {
         //add the desc button to the toolbar
         var btn = this._createToolbarButton("details_toggle", "icon-file-text", this.config.i18n.tools.detailsTool);
-        domConstruct.place(btn, "toolbar-leading");
+        domConstruct.place(btn, "detailsDiv");
         on(btn, "click", lang.hitch(this, function () {
           this._navigateStack("detailsPanel", "details_toggle");
         }));
@@ -1061,10 +1118,9 @@ define([
           return;
         }
         var btn = this._createToolbarButton("edit_toggle", "icon-edit", this.config.i18n.tools.editTool);
-        domConstruct.place(btn, "toolbar-leading");
+        domConstruct.place(btn, "editDiv");
         on(btn, "click", lang.hitch(this, function () {
           this._navigateStack("editorPanel", "edit_toggle");
-          console.log("Editor Clicked");
         }));
 
         if (this.config.showpanel && this.config.activepanel === "editor") {
@@ -1075,10 +1131,10 @@ define([
 
     },
     _createToolbarButton: function (toolid, icon, label) {
-
       var button = domConstruct.create("button", {
-        type: "icon-color button",
+        className: "click-button",
         id: toolid,
+        // tabindex: "-1",
         title: label,
         innerHTML: "<span aria-hidden=true class='icon-color " + icon + "'></span><span class='tool-label'>" + label + "</span>"
       });
@@ -1185,9 +1241,6 @@ define([
       if (this.table) {
         this.table.zoomToSelection = true;
       }
-      /*if (this.tableSelectionHandler) {
-          this.tableSelectionHandler.resume();
-      }*/
       domStyle.set(table, "height", "30%");
 
     },

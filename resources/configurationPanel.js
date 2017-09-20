@@ -1,31 +1,55 @@
 {
 	"configurationSettings": [{
-		"category": "<b>General</b>",
+		"category": "General",
 		"fields": [{
-			"type": "appproxies"
-		}, {
-			"type": "webmap"
-		},
-		{
-			"type": "conditional",
-			"condition": false,
-			"fieldName": "showtitle",
-			"label": "Display Map Title",
-			"items": [{
-				"placeHolder": "Defaults to web map title",
-				"label": "Title:",
-				"fieldName": "title",
-				"type": "string",
-				"tooltip": "Defaults to web map title"
+				"type": "appproxies"
 			}, {
-				"type": "string",
-				"fieldName": "description",
-				"label": "Description",
-				"placeHolder": "Defaults to web map description.",
-				"tooltip": "custom description",
-				"stringFieldOption": "richtext"
-			}]
-		}]
+				"type": "webmap"
+			},
+			{
+				"type": "conditional",
+				"condition": false,
+				"fieldName": "showtitle",
+				"label": "Display Map Title",
+				"items": [{
+					"placeHolder": "Defaults to web map title",
+					"label": "Title:",
+					"fieldName": "title",
+					"type": "string",
+					"tooltip": "Defaults to web map title"
+				}, {
+					"type": "string",
+					"fieldName": "description",
+					"label": "Description",
+					"placeHolder": "Defaults to web map description.",
+					"tooltip": "custom description",
+					"stringFieldOption": "richtext"
+				}]
+			}, {
+				"type": "conditional",
+				"fieldName": "splashModal",
+				"tooltip": "Enable Splash Screen",
+				"label": "Splash Screen",
+				"condition": false,
+				"items": [{
+					"type": "string",
+					"fieldName": "splashTitle",
+					"label": "Splash screen title",
+					"tooltip": "Define splash screen title"
+				}, {
+					"type": "string",
+					"fieldName": "splashContent",
+					"label": "Splash screen content text",
+					"tooltip": "Define splash screen content",
+					"stringFieldOption": "richtext"
+				}, {
+					"type": "string",
+					"fieldName": "splashButtonText",
+					"label": "Define custom button text",
+					"tooltip": "Define button text"
+				}]
+			}
+		]
 	}, {
 		"category": "Theme",
 		"fields": [{
@@ -153,7 +177,7 @@
 			"label": "Toolbar Options"
 		}, {
 			"type": "paragraph",
-			"value": "Select tools for the app toolbar. <br> <br> Note: if the web map doesn't support the enabled capability the tool will not appear. For example if the map doesn't have bookmarks then the bookmark tool won't appear on the toolbar even if it is checked."
+			"value": "Select tools for the app toolbar. <br> <br> Note: if the web map doesn't support the enabled capability the tool will not appear."
 		}, {
 			"type": "boolean",
 			"fieldName": "editor",
@@ -169,6 +193,7 @@
 		}, {
 			"type": "boolean",
 			"fieldName": "bookmarks",
+			"condition": "bookmark",
 			"label": "Bookmarks"
 		}, {
 			"type": "boolean",
@@ -327,6 +352,7 @@
 		"printlegend": true,
 		"iconcolortheme": "#fff",
 		"logointitle": false,
+		"splashModal": false,
 		"color": "#fff",
 		"titlecolor": "#333",
 		"theme": "#545454"

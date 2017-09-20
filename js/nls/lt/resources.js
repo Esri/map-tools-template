@@ -19,7 +19,7 @@ define({
     "error": "Žemėlapio sukurti nepavyko"
   },
   "tools": {
-    "bookmarkTool": "Žymės",
+    "bookmarkTool": "Žymos",
     "basemapTool": "Pagrindo žemėlapiai",
     "legendTool": "Legenda",
     "detailsTool": "Smulkesnė informacija",

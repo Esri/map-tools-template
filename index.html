@@ -4,19 +4,18 @@
 <head>
   <title></title>
   <meta charset="utf-8">
-  <meta name="fragment" content="!">
+  <meta content="!" name="fragment">
   <!-- Responsive -->
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-  <meta name="mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <meta content="yes" name="mobile-web-app-capable">
+  <meta content="yes" name="apple-mobile-web-app-capable">
+  <meta content="default" name="apple-mobile-web-app-status-bar-style">
   <!-- End Responsive -->
   <!-- Use protocol relative urls that way if the browser is viewing the page via HTTPS the js/css file will be requested using the HTTPS protocol -->
-  <link rel="stylesheet" href="https://js.arcgis.com/3.21/esri/themes/calcite/dijit/calcite.css">
-  <link rel="stylesheet" href="https://js.arcgis.com/3.21/esri/css/esri.css">
-
+  <link href="https://js.arcgis.com/3.22/esri/themes/calcite/dijit/calcite.css" rel="stylesheet">
+  <link href="https://js.arcgis.com/3.22/esri/css/esri.css" rel="stylesheet">
   <!-- Load any application specific styles -->
-  <link rel="stylesheet" href="css/main.css">
+  <link href="css/main.css" rel="stylesheet">
 </head>
 
 <body class="calcite app-loading">
@@ -24,29 +23,45 @@
     <div class="loading-message" id="loading_message"></div>
   </div>
   <!-- The ArcGIS API for JavaScript provides bidirectional support.  When viewing the application in an right to left (rtl) language like Hebrew and Arabic the map needs to remain in left-to-right (ltr) mode. Specify this by setting the dir attribute on the div to ltr. -->
-  <div id="bc" data-dojo-type="dijit/layout/BorderContainer" data-dojo-props="design:'headline', gutters:false">
-    <div id="header" class="title-header" data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'top'">
+  <div data-dojo-props="design:'headline', gutters:false" data-dojo-type="dijit/layout/BorderContainer" id="bc">
+
+    <div class="title-header" data-dojo-props="region:'top'" data-dojo-type="dijit/layout/ContentPane" id="header" role="banner">
       <h1 id="titleDiv"></h1>
       <div id="toolbarDiv">
-        <div id="toolbar-trailing" class="bg toolbar">
-          <span id="toolbar-leading"></span>
-          <span class="tools-menu" id="toolbar-menu"></span>
+        <div class="bg toolbar" id="toolbar-trailing">
+          <span id="toolbar-leading"><span id="editDiv"></span> <span id="legendDiv"></span> <span id="detailsDiv"></span></span>
+          <span class="tools-menu" id="toolbar-menu"><span class="hidden" id="basemapBtnDiv"></span> <span class="hidden"
+            id="bookmarkBtnDiv"></span> <span class="hidden" id="measureBtnDiv"></span> <span class="hidden" id="shareBtnDiv"></span>          <span class="hidden" id="layerListBtnDiv"></span> <span class="hidden" id="tableBtnDiv"></span> <span class="hidden"
+            id="printBtnDiv"></span></span>
         </div>
       </div>
     </div>
-    <div id="sideDiv" class="sidepanel" data-dojo-type="dijit/layout/ContentPane" data-dojo-props='region:"left"'>
-      <div id="stackContainer" class="sidepanel_content" data-dojo-type="dijit/layout/StackContainer" data-dojo-props='region:"center"'>
-        <div id="detailsPanel" data-dojo-type="dijit/layout/ContentPane" data-dojo-props='region:"center", selected:true'></div>
-        <div id="legendPanel" data-dojo-type="dijit/layout/ContentPane" data-dojo-props='region:"center"'></div>
-        <div id="editorPanel" data-dojo-type="dijit/layout/ContentPane" data-dojo-props='region:"center"'></div>
+    <div class="sidepanel" data-dojo-props='region:"left"' data-dojo-type="dijit/layout/ContentPane" id="sideDiv">
+      <div class="sidepanel_content" data-dojo-props='region:"center"' data-dojo-type="dijit/layout/StackContainer" id="stackContainer">
+        <div data-dojo-props='region:"center"' data-dojo-type="dijit/layout/ContentPane" id="legendPanel"></div>
+        <div data-dojo-props='region:"center", selected:true' data-dojo-type="dijit/layout/ContentPane" id="detailsPanel"></div>
+        <div data-dojo-props='region:"center"' data-dojo-type="dijit/layout/ContentPane" id="editorPanel"></div>
       </div>
     </div>
-    <div id="mapbc" data-dojo-type="dijit/layout/BorderContainer" data-dojo-props="region:'center',design:'headline', gutters:false">
-      <div id="mapDiv" data-dojo-type="dijit/layout/ContentPane" data-dojo-props='region:"center"' dir="ltr"></div>
-      <div id="tableDiv" data-dojo-type="dijit/layout/ContentPane" data-dojo-props='region:"bottom",splitter:true'>
+    <div data-dojo-props="region:'center',design:'headline', gutters:false" data-dojo-type="dijit/layout/BorderContainer" id="mapbc"
+      role="main">
+      <div data-dojo-props='region:"center"' data-dojo-type="dijit/layout/ContentPane" dir="ltr" id="mapDiv"></div>
+      <div data-dojo-props='region:"bottom",splitter:true' data-dojo-type="dijit/layout/ContentPane" id="tableDiv">
         <div id="featureTable"></div>
       </div>
     </div>
+    <!--Modal Splash Screen-->
+    <div aria-describedby="modalContent" aria-labelledby="modalTitle" class="hide dialog-modal" id="modal" role="dialog" tabindex="-1">
+      <div class="modal-content">
+        <header class="modal-header bg fc">
+          <h2 class="dialog-modal" id="modalTitle"></h2>
+        </header>
+        <div class="copy">
+          <div class="dialog-modal" id="modalContent"></div><input class="dialog-modal bg fc" id="closeOverlay" type="button">
+        </div>
+      </div>
+    </div>
+
   </div>
   <script type="text/javascript">
     var package_path = window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/'));
@@ -70,7 +85,8 @@
       dojoConfig.locale = RegExp.$1;
     }
   </script>
-  <script type="text/javascript" src="https://js.arcgis.com/3.21/"></script>
+  <script src="https://js.arcgis.com/3.22/" type="text/javascript">
+  </script>
   <script type="text/javascript">
     require([
       "dojo/parser",

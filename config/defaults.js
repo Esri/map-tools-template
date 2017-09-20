@@ -61,6 +61,13 @@ define({
     "id": null, //"Boston_Marathon_7694",
     "fields": [] //"STATE_NAME"
   }],
+  // Set splashModal to display a splash screen when the app loads
+  // Define the splash content using splashTitle and splashContent.
+  // Add labels to the toolbar buttons
+  "splashModal": false,
+  "splashTitle": null,
+  "splashContent": null,
+  "splashButtonText": null,
   "table": true,
   "tableLayer": {
     "id": null,
