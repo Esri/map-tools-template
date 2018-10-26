@@ -1,8 +1,8 @@
-define(["dojo/_base/declare", "dojo/_base/lang", "dojo/_base/array", "dojo/_base/json", "dojo/dom-construct", "esri/lang", "esri/tasks/locator", "esri/layers/FeatureLayer", "esri/dijit/Search"], function(
-  declare, lang, array, dojoJson, domConstruct, esriLang, Locator, FeatureLayer, Search) {
+define(["dojo/_base/declare", "dojo/_base/lang", "dojo/_base/array", "esri/lang", "esri/tasks/locator", "esri/layers/FeatureLayer", "esri/dijit/Search"], function (
+  declare, lang, array, esriLang, Locator, FeatureLayer, Search) {
   return declare(null, {
 
-    constructor: function(parameters) {
+    constructor: function (parameters) {
 
       var defaults = {
         sources: [],
@@ -23,7 +23,7 @@ define(["dojo/_base/declare", "dojo/_base/lang", "dojo/_base/array", "dojo/_base
 
     /* Public Methods */
 
-    createOptions: function() {
+    createOptions: function () {
       return {
         map: this.map,
         sources: this._createSources(),
@@ -34,7 +34,7 @@ define(["dojo/_base/declare", "dojo/_base/lang", "dojo/_base/array", "dojo/_base
     /* Private Methods */
 
     //optional array of additional search layers to configure from the application config process
-    _createSources: function() {
+    _createSources: function () {
       if (this.applicationConfiguredSources) {
         this._createAppConfigSources();
       } else {
@@ -53,12 +53,12 @@ define(["dojo/_base/declare", "dojo/_base/lang", "dojo/_base/array", "dojo/_base
       return this.sources;
     },
 
-    _getActiveSource: function() {
+    _getActiveSource: function () {
       var activeIndex = 0;
       if (this.sources && this.sources.length > 1) {
         activeIndex = "all";
       }
-      array.some(this.sources, function(s, index) {
+      array.some(this.sources, function (s, index) {
         if (!s.hasEsri && s.featureLayer) {
           activeIndex = index;
           return true;
@@ -66,9 +66,9 @@ define(["dojo/_base/declare", "dojo/_base/lang", "dojo/_base/array", "dojo/_base
       });
       return activeIndex;
     },
-    _createHelperServiceSources: function() {
+    _createHelperServiceSources: function () {
       var geocoders = lang.clone(this.geocoders);
-      array.forEach(geocoders, lang.hitch(this, function(geocoder) {
+      array.forEach(geocoders, lang.hitch(this, function (geocoder) {
         if (geocoder.url.indexOf(".arcgis.com/arcgis/rest/services/World/GeocodeServer") > -1) {
           var s = new Search();
           var esriSource = s.defaultSource;
@@ -91,15 +91,15 @@ define(["dojo/_base/declare", "dojo/_base/lang", "dojo/_base/array", "dojo/_base
       }));
     },
 
-    _createWebMapItemSources: function() {
+    _createWebMapItemSources: function () {
       if (this.itemData && this.itemData.applicationProperties && this.itemData.applicationProperties.viewing && this.itemData.applicationProperties.viewing.search) {
         //search is configured on the web map item
         var searchOptions = this.itemData.applicationProperties.viewing.search;
-        array.forEach(searchOptions.layers, lang.hitch(this, function(searchLayer) {
+        array.forEach(searchOptions.layers, lang.hitch(this, function (searchLayer) {
           //get the title specified in the item
           var operationalLayers = this.itemData.operationalLayers,
             layer = null;
-          array.some(operationalLayers, function(opLayer) {
+          array.some(operationalLayers, function (opLayer) {
             if (opLayer.id === searchLayer.id) {
               layer = opLayer;
               return true;
@@ -111,7 +111,7 @@ define(["dojo/_base/declare", "dojo/_base/lang", "dojo/_base/array", "dojo/_base
               name = layer.title || layer.name;
             if (esriLang.isDefined(searchLayer.subLayer)) {
               url = url + "/" + searchLayer.subLayer;
-              array.some(layer.layerObject.layerInfos, function(info) {
+              array.some(layer.layerObject.layerInfos, function (info) {
                 if (info.id === searchLayer.subLayer) {
                   name += " - " + layer.layerObject.layerInfos[searchLayer.subLayer].name;
                   return true;
@@ -141,10 +141,10 @@ define(["dojo/_base/declare", "dojo/_base/lang", "dojo/_base/array", "dojo/_base
         }));
       }
     },
-    _createAppConfigSources: function() {
+    _createAppConfigSources: function () {
       // Configured via the new Search Configuation widget
       var configSource = lang.clone(this.applicationConfiguredSources);
-      array.forEach(configSource, lang.hitch(this, function(source) {
+      array.forEach(configSource, lang.hitch(this, function (source) {
         if (source.locator) {
           source.locator = new Locator(source.url);
         } else { //feature layer
@@ -178,9 +178,9 @@ define(["dojo/_base/declare", "dojo/_base/lang", "dojo/_base/array", "dojo/_base
       }));
 
     },
-    _createConfiguredSources: function() {
+    _createConfiguredSources: function () {
       // Old configuration using layer/field picker
-      array.forEach(this.configuredSearchLayers, lang.hitch(this, function(layer) {
+      array.forEach(this.configuredSearchLayers, lang.hitch(this, function (layer) {
         var mapLayer = this.map.getLayer(layer.id);
         if (mapLayer) {
           var source = {};

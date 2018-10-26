@@ -10,7 +10,7 @@ define({
       "facebookTooltip": "Facebook",
       "twitterTooltip": "Twitter",
       "gplusTooltip": "Google Plus",
-      "emailTooltip": "Meiliaadress",
+      "emailTooltip": "E-mail",
       "copy": "Kopeeri lühike URL lõikelauale",
       "copied": "Kopeeritud"
     }

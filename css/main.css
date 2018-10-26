@@ -350,7 +350,6 @@ g#mapDiv_graphics_layer path {
   border-radius: 0 0 4px 4px;
 }
 
-
 /*overwrite calcite styles*/
 
 .calcite .dijitContentPane {
@@ -427,7 +426,6 @@ g#mapDiv_graphics_layer path {
   z-index: 50px;
 }
 
-
 /*Position the zoom, locate and search differently if parts are missing*/
 
 .no-zoom .LocateButton {
@@ -470,6 +468,9 @@ g#mapDiv_graphics_layer path {
   top: 120px;
 }
 
+.no-locate .locateContainer {
+  display: none;
+}
 
 /*End map tools positioning section*/
 
@@ -485,7 +486,6 @@ g#mapDiv_graphics_layer path {
   background-color: transparent;
   border: 1px solid #57585a;
 }
-
 
 /*Measure Window*/
 
@@ -724,7 +724,6 @@ input[type=checkbox] {
   font-size: 1em;
 }
 
-
 /*Basemap Gallery*/
 
 .closemenu {
@@ -864,7 +863,6 @@ input[type=checkbox] {
   border-bottom: solid 1px #ccc;
 }
 
-
 /*Styles for the modal dialog (splash screen)*/
 
 #modal {
@@ -937,4 +935,13 @@ input[type=checkbox] {
   width: auto;
   position: relative;
   margin: .5em auto;
+}
+
+#detailsPanel {
+  margin-right: 12px;
+}
+
+.esriRTL #detailsPanel {
+  margin-left: 12px;
+  margin-right: auto;
 }

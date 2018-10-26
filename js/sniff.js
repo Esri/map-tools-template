@@ -72,7 +72,7 @@ define(["dojo/has"], function (has) { /*App capabilities*/
     return print;
   });
   has.add("secure", function () {
-    return (document.location.protocol === "https:");
+    return (document.location.protocol === "https:" ? true : false);
   });
   return has;
 });

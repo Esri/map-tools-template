@@ -16,27 +16,27 @@
  */
 define({
   "map": {
-    "error": "マップを作成できません"
+    "error": "No es pot crear el mapa"
   },
   "tools": {
-    "bookmarkTool": "ブックマーク",
-    "basemapTool": "ベースマップ",
-    "legendTool": "凡例",
-    "detailsTool": "詳細",
-    "measureTool": "計測",
-    "shareTool": "共有",
-    "layerTool": "レイヤー",
-    "tableTool": "テーブル",
-    "editTool": "編集",
-    "printTool": "印刷",
-    "printLegend": "凡例を出力に追加",
+    "bookmarkTool": "Marcadors",
+    "basemapTool": "Mapes base",
+    "legendTool": "Llegenda",
+    "detailsTool": "Detalls",
+    "measureTool": "Mesura",
+    "shareTool": "Comparteix",
+    "layerTool": "Capes",
+    "tableTool": "Taula",
+    "editTool": "Edita",
+    "printTool": "Imprimeix",
+    "printLegend": "Afegeix la llegenda a la sortida",
     "printLayouts": {
-      "label1": "地形",
-      "label2": "縦",
-      "label3": "横",
-      "label4": "縦"
+      "label1": "Horitzontal",
+      "label2": "Vertical",
+      "label3": "Horitzontal",
+      "label4": "Vertical"
     },
-    "printTitle": "タイトル",
-    "printTitlePrompt": "カスタム タイトルの追加"
+    "printTitle": "Títol",
+    "printTitlePrompt": "Afegeix un títol personalitzat"
   }
 });

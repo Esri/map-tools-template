@@ -16,27 +16,27 @@
  */
 define({
   "map": {
-    "error": "マップを作成できません"
+    "error": "Nem sikerült létrehozni a térképet"
   },
   "tools": {
-    "bookmarkTool": "ブックマーク",
-    "basemapTool": "ベースマップ",
-    "legendTool": "凡例",
-    "detailsTool": "詳細",
-    "measureTool": "計測",
-    "shareTool": "共有",
-    "layerTool": "レイヤー",
-    "tableTool": "テーブル",
-    "editTool": "編集",
-    "printTool": "印刷",
-    "printLegend": "凡例を出力に追加",
+    "bookmarkTool": "Könyvjelzők",
+    "basemapTool": "Alaptérképek",
+    "legendTool": "Jelmagyarázat",
+    "detailsTool": "Részletek",
+    "measureTool": "Mérés",
+    "shareTool": "Megosztás",
+    "layerTool": "Rétegek",
+    "tableTool": "Táblázat",
+    "editTool": "Szerkesztés",
+    "printTool": "Nyomtatás",
+    "printLegend": "Jelmagyarázat hozzáadása a kimenethez",
     "printLayouts": {
-      "label1": "地形",
-      "label2": "縦",
-      "label3": "横",
-      "label4": "縦"
+      "label1": "Fekvő tájolás",
+      "label2": "Álló tájolás",
+      "label3": "Fekvő tájolás",
+      "label4": "Álló tájolás"
     },
-    "printTitle": "タイトル",
-    "printTitlePrompt": "カスタム タイトルの追加"
+    "printTitle": "Cím",
+    "printTitlePrompt": "Egyéni cím hozzáadása"
   }
 });
